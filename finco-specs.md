@@ -165,7 +165,7 @@ Mesajele catre utilizator sunt in **romana fara diacritice**.
 | token | string | unic, aleator, lung |
 | automat | boolean | `true` daca generat de jobul lunar automat; `false` daca on-demand (custom / public) |
 | expira_la | timestamp | scadenta |
-| folosit | boolean | poate fi refolosit pana la expirare |
+| folosit | boolean | indicator ca s-a incarcat cel putin o data (pt. angajat); nu afecteaza expirarea |
 | created_by | UUID | FK -> user (null daca generat de sistem / formular public) |
 | created_at | timestamp | |
 
@@ -176,9 +176,14 @@ Mesajele catre utilizator sunt in **romana fara diacritice**.
 | client_id | UUID | FK |
 | period_id | UUID | FK |
 | upload_link_id | UUID | FK |
+| numar_lot | int | numarul lotului in cadrul perioadei (1 = primul upload al lunii, 2 = al doilea ...) |
 | nume_zip | string | |
 | numar_fisiere | int | |
 | created_at | timestamp | momentul incarcarii |
+
+> `numar_lot` distinge loturile aceleiasi perioade si serveste ca namespace
+> pentru fisiere intre upload-uri. (Intr-un singur ZIP nu pot exista doua
+> fisiere cu acelasi nume, deci coliziunile apar doar intre loturi.)
 
 ### `file`
 | camp | tip | note |
@@ -187,8 +192,8 @@ Mesajele catre utilizator sunt in **romana fara diacritice**.
 | upload_id | UUID | FK -> upload |
 | client_id | UUID | FK (denormalizat pt. filtrare rapida) |
 | period_id | UUID | FK |
-| nume_fisier | string | numele original din ZIP |
-| cale_storage | string | cheia in object storage |
+| nume_fisier | string | calea/numele relativ din ZIP — se **pastreaza** structura de foldere |
+| cale_storage | string | cheia unica in object storage (UUID), **nederivata** din `nume_fisier` |
 | dimensiune | long | bytes |
 | content_type | string | |
 | created_at | timestamp | |
@@ -223,6 +228,9 @@ pentru lunar automat, custom (angajat) si re-cerere publica.
 1. Un job de sistem ruleaza **zilnic**.
 2. Pentru fiecare client activ a carui `zi_trimitere` este egala cu ziua
    curenta din luna (daca luna are mai putine zile, se ruleaza in ultima zi):
+   - daca pentru acest client + luna curenta link-ul lunar automat s-a trimis
+     deja, se sare peste (idempotent — evita email-uri duble la rulari
+     repetate / restart),
    - se creeaza `period` pentru luna curenta daca nu exista deja (`are_upload`
      si `finalizat` = `false`),
    - se genereaza un `upload_link` cu `automat = true` si scadenta
@@ -230,14 +238,19 @@ pentru lunar automat, custom (angajat) si re-cerere publica.
    - se trimite email-ul cu link-ul si se inregistreaza un `document_request`
      cu `automat = true` (`email_trimis` = `true` / `false`).
 
-> Ziua de trimitere este **per client** (`client.zi_trimitere`). Perioada
-> (`an_luna`) este aceeasi pentru toti; doar ziua emiterii difera. Scadenta
-> link-ului ramane configurabila, separat de ziua de trimitere.
+> Link-ul lunar este pentru **luna curenta** (luna in care e trimis). Ziua de
+> trimitere este **per client** (`client.zi_trimitere`); perioada (`an_luna`)
+> este aceeasi pentru toti, doar ziua emiterii difera. Scadenta ramane
+> configurabila, separat de ziua de trimitere.
+>
+> **Client nou (inregistrat la mijlocul lunii):** daca `zi_trimitere` a trecut
+> deja fata de ziua curenta, i se trimite imediat link-ul pentru luna curenta;
+> altfel primeste link-ul la `zi_trimitere`, prin jobul zilnic.
 
 ### 9.2. Upload de catre client
 
-1. Clientul deschide link-ul. Pagina publica valideaza token-ul
-   (exista, neexpirat).
+1. Clientul deschide link-ul. Pagina publica valideaza token-ul (exista,
+   neexpirat) si afiseaza **scadenta** (pana cand poate incarca).
 2. Clientul selecteaza **un ZIP** cu toate fisierele lunii.
 3. Frontend (verificari rapide inainte de trimitere, doar pentru UX — **nu**
    inlocuiesc validarea din backend, care ramane sursa de adevar):
@@ -264,7 +277,8 @@ pentru lunar automat, custom (angajat) si re-cerere publica.
 
 ### 9.3. Cerere de fisiere suplimentare (de catre angajat)
 
-1. Angajatul alege un client si (optional) o perioada.
+1. Angajatul alege un client; in MVP cererea vizeaza **luna curenta** (fara
+   luni trecute).
 2. Scrie / alege un mesaj custom (modul exact de compunere se decide ulterior).
 3. `DocumentRequestOrchestrator` genereaza un `upload_link` cu
    `automat = false`, trimite email-ul si inregistreaza un `document_request`
@@ -381,6 +395,9 @@ istoricul complet al comunicarii cu clientul.
 - Tracking deschideri/click-uri email.
 - Integrari directe cu WhatsApp / alte canale.
 - OCR / clasificare automata a documentelor.
+- Targetarea lunilor trecute (re-cererea si cererea custom vizeaza doar luna
+  curenta).
+- Reglaje de deliverability email (SPF / DKIM / DMARC) — se trateaza ulterior.
 
 ## 14. Idei / imbunatatiri viitoare
 
@@ -391,6 +408,7 @@ istoricul complet al comunicarii cu clientul.
 - Audit log (cine a cerut/descarcat ce).
 - Roluri: admin vs. operator.
 - Export contabil (structurare fisiere pe tip de document).
+- Scanare antivirus a fisierelor incarcate (planificata pentru V2).
 
 ## 15. Intrebari deschise (de clarificat)
 
@@ -406,6 +424,18 @@ istoricul complet al comunicarii cu clientul.
 5. **Limita dimensiune ZIP** si numar maxim fisiere per upload.
 6. **Pastrarea fisierelor** — politica de retentie (cat timp se pastreaza
    arhiva veche)?
+
+### De discutat dupa MVP
+
+- Bootstrap primul angajat + flux de resetare parola + management utilizatori.
+- GDPR / retentie: regiune de stocare (UE), perioada legala de pastrare vs.
+  dreptul la stergere.
+- Backup Postgres + object storage (cu plan de restaurare).
+- Limite de upload la nivel de infra (multipart Spring, `client_max_body_size`
+  in reverse proxy) corelate cu limita ZIP; dezarhivare prin streaming pe disc.
+- Timezone fix pentru jobul zilnic / `zi_trimitere` (Europe/Bucharest).
+- Pagina publica de upload este doar pentru incarcare (nu listeaza fisierele
+  existente ale clientului).
 
 ## 16. Etape de livrare (propunere)
 
