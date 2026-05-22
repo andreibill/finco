@@ -1,0 +1,104 @@
+.client-picker {
+  position: relative;
+}
+
+.client-picker__trigger {
+  height: 38px;
+  width: 100%;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  text-align: left;
+  padding: 0 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-sans);
+  font-size: var(--fs-14);
+  color: var(--fg-primary);
+}
+.client-picker__trigger:focus-visible {
+  outline: none;
+  border-color: var(--finco-orange);
+  box-shadow: var(--shadow-focus);
+}
+
+.client-picker__placeholder {
+  color: var(--fg-tertiary);
+}
+
+.client-picker__chevron {
+  margin-left: auto;
+  color: var(--fg-tertiary);
+  display: inline-flex;
+}
+
+.client-picker__menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: var(--space-1);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  z-index: 1;
+  overflow: hidden;
+}
+
+.client-picker__search {
+  padding: var(--space-2);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.client-picker__list {
+  max-height: 240px;
+  overflow: auto;
+}
+
+.client-picker__item {
+  width: 100%;
+  padding: 10px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  border: none;
+  background: transparent;
+  border-bottom: 1px solid var(--border-subtle);
+  text-align: left;
+}
+.client-picker__item:last-child {
+  border-bottom: none;
+}
+.client-picker__item:hover {
+  background: var(--bg-subtle);
+}
+
+.client-picker__item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.client-picker__item-name {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-13);
+  color: var(--fg-primary);
+}
+
+.client-picker__item-email {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  color: var(--fg-tertiary);
+}
+
+.client-picker__empty {
+  padding: var(--space-4);
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: var(--fs-13);
+  color: var(--fg-tertiary);
+}

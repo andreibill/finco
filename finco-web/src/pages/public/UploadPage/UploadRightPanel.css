@@ -1,0 +1,103 @@
+.upload-right__step {
+  font-family: var(--font-sans);
+  font-size: var(--fs-12);
+  font-weight: var(--fw-semibold);
+  color: var(--fg-tertiary);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.upload-right__title {
+  margin: 6px 0 0;
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-28);
+  letter-spacing: -0.02em;
+  color: var(--fg-primary);
+  line-height: 1.15;
+}
+
+.upload-right__title-accent {
+  color: var(--finco-orange);
+}
+
+.upload-right__chips {
+  display: flex;
+  gap: 6px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.file-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-muted);
+  border: 1px solid var(--border-subtle);
+  color: var(--fg-secondary);
+  font-family: var(--font-sans);
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-12);
+  white-space: nowrap;
+}
+
+.upload-right__zone {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 22px;
+}
+
+.upload-right__cta-wrap {
+  margin-top: 20px;
+}
+
+.upload-right__cta {
+  width: 100%;
+  height: 52px;
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  background: var(--finco-orange);
+  color: var(--fg-on-brand);
+  font-family: var(--font-sans);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-15);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  box-shadow: var(--shadow-cta-orange);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.upload-right__cta:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  box-shadow: none;
+}
+
+.upload-right__cta:not(:disabled):active {
+  transform: scale(0.99);
+}
+
+.upload-right__cta--done {
+  background: var(--status-complete);
+  opacity: 1;
+}
+
+.upload-right__note {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-subtle);
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  color: var(--fg-tertiary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}

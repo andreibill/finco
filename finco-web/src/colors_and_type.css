@@ -1,0 +1,305 @@
+/* ============================================================
+   FINCO Expert — Core Design Tokens
+   Colors, type, spacing, radii, shadow, motion.
+   Import once at the root of any FINCO surface.
+   ============================================================ */
+
+/* Webfont imports (Google Fonts substitutions — see README) */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* ---------- Brand colors ---------- */
+  --finco-orange:        #F26B22;   /* primary brand — buttons, links, accents */
+  --finco-orange-600:    #D9551A;   /* hover / pressed */
+  --finco-orange-700:    #B8430F;   /* deep press, on-light text */
+  --finco-orange-500:    #FF7A2E;   /* hover on dark */
+  --finco-orange-300:    #FFB386;   /* tint */
+  --finco-orange-100:    #FFE8D9;   /* surface tint */
+  --finco-orange-50:     #FFF5EE;   /* lightest wash */
+
+  --finco-graphite:      #3D3D3D;   /* brand neutral — wordmark, primary text */
+  --finco-graphite-800:  #2A2A2A;
+  --finco-graphite-900:  #1A1A1A;
+
+  /* ---------- Neutral scale (cool gray, slight warmth) ---------- */
+  --neutral-0:   #FFFFFF;
+  --neutral-25:  #FAFAF9;
+  --neutral-50:  #F5F5F4;
+  --neutral-100: #ECECEA;
+  --neutral-200: #DCDCD9;
+  --neutral-300: #C2C2BF;
+  --neutral-400: #9C9C99;
+  --neutral-500: #767672;
+  --neutral-600: #585855;
+  --neutral-700: #424240;
+  --neutral-800: #2D2D2B;
+  --neutral-900: #1A1A19;
+
+  /* ---------- Semantic surfaces ---------- */
+  --bg-app:        var(--neutral-25);   /* app background */
+  --bg-surface:    var(--neutral-0);    /* cards, sheets */
+  --bg-elevated:   var(--neutral-0);    /* modals, popovers */
+  --bg-muted:      var(--neutral-50);   /* inset rows, tables */
+  --bg-subtle:     var(--neutral-100);  /* hover, dividers fill */
+  --bg-inverse:    var(--finco-graphite-900);
+
+  /* ---------- Semantic text ---------- */
+  --fg-primary:    var(--neutral-900);  /* body, headings */
+  --fg-secondary:  var(--neutral-600);  /* labels, captions */
+  --fg-tertiary:   var(--neutral-500);  /* meta, placeholders */
+  --fg-disabled:   var(--neutral-400);
+  --fg-on-brand:   var(--neutral-0);    /* white on orange */
+  --fg-on-dark:    var(--neutral-0);
+  --fg-brand:      var(--finco-orange-600); /* orange text on light bg */
+
+  /* ---------- Borders ---------- */
+  --border-subtle: var(--neutral-100);
+  --border-default: var(--neutral-200);
+  --border-strong: var(--neutral-300);
+  --border-focus:  var(--finco-orange);
+
+  /* ---------- Status (semafor pentru status upload) ---------- */
+  --status-empty:     #C2C2BF;  /* niciun upload — neutral gray */
+  --status-empty-bg:  #F5F5F4;
+
+  --status-partial:    #E89A1D; /* partial — amber, related to brand orange */
+  --status-partial-bg: #FFF6E6;
+
+  --status-complete:    #2F9461; /* finalizat — calm green */
+  --status-complete-bg: #E6F4ED;
+
+  --status-error:    #C7361F;
+  --status-error-bg: #FCE9E6;
+
+  --status-info:     #2A6FB8;
+  --status-info-bg:  #E6F0FA;
+
+  /* ---------- Type families ---------- */
+  --font-display: 'Space Grotesk', 'Helvetica Neue', Helvetica, sans-serif;
+  --font-sans:    'Manrope', 'Helvetica Neue', Helvetica, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  /* ---------- Type scale (rem, base = 16px) ---------- */
+  --fs-12: 0.75rem;
+  --fs-13: 0.8125rem;
+  --fs-14: 0.875rem;
+  --fs-15: 0.9375rem;
+  --fs-16: 1rem;
+  --fs-18: 1.125rem;
+  --fs-20: 1.25rem;
+  --fs-24: 1.5rem;
+  --fs-28: 1.75rem;
+  --fs-32: 2rem;
+  --fs-40: 2.5rem;
+  --fs-48: 3rem;
+
+  /* ---------- Line heights ---------- */
+  --lh-tight: 1.15;
+  --lh-snug:  1.3;
+  --lh-base:  1.5;
+  --lh-loose: 1.7;
+
+  /* ---------- Weights ---------- */
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+  --fw-black:    800;
+
+  /* ---------- Spacing scale (4px base) ---------- */
+  --space-0:  0;
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* ---------- Radii ---------- */
+  --radius-xs:  3px;
+  --radius-sm:  6px;
+  --radius-md:  8px;   /* default for inputs, buttons */
+  --radius-lg:  12px;  /* cards */
+  --radius-xl:  16px;  /* large cards, modals */
+  --radius-pill: 999px;
+
+  /* ---------- Elevation ---------- */
+  --shadow-xs: 0 1px 2px rgba(26,26,25,0.04);
+  --shadow-sm: 0 1px 2px rgba(26,26,25,0.04), 0 1px 1px rgba(26,26,25,0.06);
+  --shadow-md: 0 2px 4px rgba(26,26,25,0.04), 0 4px 12px rgba(26,26,25,0.06);
+  --shadow-lg: 0 4px 8px rgba(26,26,25,0.04), 0 12px 32px rgba(26,26,25,0.08);
+  --shadow-xl: 0 8px 16px rgba(26,26,25,0.06), 0 24px 64px rgba(26,26,25,0.12);
+  --shadow-focus: 0 0 0 3px rgba(242,107,34,0.25);
+  --shadow-focus-error: 0 0 0 3px rgba(199,54,31,0.22);
+
+  /* ---------- Motion ---------- */
+  --ease-out:   cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in:    cubic-bezier(0.4, 0, 1, 1);
+  --ease-std:   cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast:    120ms;
+  --dur-base:    200ms;
+  --dur-slow:    320ms;
+
+  /* ---------- Layout ---------- */
+  --container-narrow: 720px;
+  --container-base:   1080px;
+  --container-wide:   1280px;
+  --sidebar-w:        248px;
+  --topbar-h:         60px;
+
+  /* ---------- Extinderi pentru implementarea web (Vite) ---------- */
+  /* Text de status (AA pe fundalul -bg corespunzator). */
+  --status-empty-fg:    var(--neutral-600);
+  --status-partial-fg:  #8B5E0A;
+  --status-complete-fg: #1F6B45;
+  --status-error-fg:    #8E2716;
+  --status-info-fg:     #1E548D;
+
+  /* Borduri pentru toast / carduri colorate. */
+  --status-complete-border: #BCDDC9;
+  --status-partial-border:  #F0D7A1;
+  --status-error-border:    #F0BFB6;
+  --status-info-border:     #BFD7EE;
+
+  /* Hover buton danger. */
+  --status-error-hover: #A82A16;
+
+  /* Glow-uri decorative (pagini publice). */
+  --glow-orange-strong: rgba(242, 107, 34, 0.55);
+  --glow-orange-soft:   rgba(242, 107, 34, 0.10);
+  --glow-orange-faint:  rgba(242, 107, 34, 0.06);
+  --glow-orange-cta:    rgba(242, 107, 34, 0.5);
+  --glow-white-soft:    rgba(255, 255, 255, 0.18);
+
+  /* Suprafete pe fundal intunecat / verde (hero public). */
+  --on-dark-strong: rgba(255, 255, 255, 0.95);
+  --on-dark-muted:  rgba(255, 255, 255, 0.70);
+  --on-dark-faint:  rgba(255, 255, 255, 0.55);
+  --on-dark-dim:    rgba(255, 255, 255, 0.45);
+  --on-dark-fill:   rgba(255, 255, 255, 0.06);
+  --on-dark-border: rgba(255, 255, 255, 0.08);
+  --on-dark-chip:   rgba(255, 255, 255, 0.15);
+  --hero-flame-bg:  rgba(242, 107, 34, 0.18);
+  --hero-flame-fg:  var(--finco-orange-300);
+
+  /* Gradiente. */
+  --grad-graphite: linear-gradient(160deg, var(--finco-graphite-800) 0%, var(--finco-graphite-900) 100%);
+  --grad-success:  linear-gradient(160deg, #1F6B45 0%, #134A30 100%);
+  --grad-orange-cta: linear-gradient(180deg, var(--finco-orange) 0%, var(--finco-orange-600) 100%);
+  --grad-dropzone: linear-gradient(180deg, #FCFCFB 0%, var(--neutral-50) 100%);
+  --grad-dropzone-active: linear-gradient(135deg, var(--glow-orange-soft), var(--glow-orange-faint));
+  --grad-success-tile: linear-gradient(180deg, #F2FBF6 0%, var(--status-complete-bg) 100%);
+
+  /* Umbre mari + borduri/backdrop pentru suprafata publica si modale. */
+  --shadow-public: 0 30px 80px -20px rgba(26, 26, 25, 0.18), 0 8px 24px -8px rgba(26, 26, 25, 0.08);
+  --shadow-cta-orange: 0 8px 24px -6px var(--glow-orange-cta);
+  --border-hairline: rgba(26, 26, 25, 0.06);
+  --backdrop-modal: rgba(26, 26, 25, 0.45);
+}
+
+/* ============================================================
+   Semantic typography classes
+   ============================================================ */
+
+.t-display {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-40);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.02em;
+  color: var(--fg-primary);
+}
+.t-h1 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-32);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.015em;
+  color: var(--fg-primary);
+}
+.t-h2 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-24);
+  line-height: var(--lh-snug);
+  letter-spacing: -0.01em;
+  color: var(--fg-primary);
+}
+.t-h3 {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-18);
+  line-height: var(--lh-snug);
+  color: var(--fg-primary);
+}
+.t-h4 {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-15);
+  line-height: var(--lh-snug);
+  color: var(--fg-primary);
+}
+
+.t-body {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-15);
+  line-height: var(--lh-base);
+  color: var(--fg-primary);
+}
+.t-body-sm {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-14);
+  line-height: var(--lh-base);
+  color: var(--fg-primary);
+}
+.t-label {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-13);
+  line-height: var(--lh-snug);
+  color: var(--fg-secondary);
+}
+.t-caption {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-12);
+  line-height: var(--lh-snug);
+  color: var(--fg-tertiary);
+}
+.t-overline {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-12);
+  line-height: var(--lh-snug);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-secondary);
+}
+.t-mono {
+  font-family: var(--font-mono);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-13);
+  line-height: var(--lh-base);
+  color: var(--fg-primary);
+}
+
+/* ============================================================
+   Base resets used inside the design system
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font-sans);
+  color: var(--fg-primary);
+  background: var(--bg-app);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

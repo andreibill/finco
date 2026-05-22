@@ -1,0 +1,63 @@
+.kpi__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.kpi__label {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-semibold);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-secondary);
+}
+
+.kpi__icon {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kpi__icon--complete {
+  background: var(--status-complete-bg);
+  color: var(--status-complete-fg);
+}
+.kpi__icon--partial {
+  background: var(--status-partial-bg);
+  color: var(--status-partial-fg);
+}
+.kpi__icon--empty {
+  background: var(--bg-subtle);
+  color: var(--fg-secondary);
+}
+.kpi__icon--brand {
+  background: var(--finco-orange-100);
+  color: var(--finco-orange-700);
+}
+
+.kpi__value {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-32);
+  color: var(--fg-primary);
+  letter-spacing: -0.015em;
+  line-height: 1;
+}
+
+.kpi__total {
+  color: var(--fg-tertiary);
+  font-size: var(--fs-18);
+  font-weight: var(--fw-medium);
+}
+
+.kpi__hint {
+  font-family: var(--font-sans);
+  font-size: var(--fs-12);
+  color: var(--fg-secondary);
+  margin-top: var(--space-1);
+}

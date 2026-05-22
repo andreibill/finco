@@ -1,0 +1,27 @@
+.client-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.client-form__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-2) 0;
+}
+
+.client-form__toggle-label {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-14);
+  color: var(--fg-primary);
+}
+
+.client-form__toggle-hint {
+  font-family: var(--font-sans);
+  font-size: var(--fs-13);
+  color: var(--fg-secondary);
+  margin-top: 2px;
+}

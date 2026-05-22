@@ -1,0 +1,51 @@
+.public-shell {
+  min-height: 100vh;
+  position: relative;
+  background: radial-gradient(1200px 600px at 80% -10%, var(--glow-orange-soft), transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, var(--glow-orange-faint), transparent 55%),
+    var(--neutral-25);
+  display: flex;
+  flex-direction: column;
+}
+
+.public-shell__header {
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.public-shell__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--fg-secondary);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: var(--fs-13);
+  font-weight: var(--fw-medium);
+}
+.public-shell__link:hover {
+  color: var(--fg-primary);
+}
+
+.public-shell__main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px 40px;
+}
+
+.public-shell__container {
+  width: 100%;
+  max-width: 960px;
+}
+
+.public-shell__footer {
+  padding: 20px 28px;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: var(--fs-12);
+  color: var(--fg-tertiary);
+}

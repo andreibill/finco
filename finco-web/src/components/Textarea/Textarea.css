@@ -1,0 +1,18 @@
+.textarea {
+  padding: 10px 12px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  outline: none;
+  font-family: var(--font-sans);
+  font-size: var(--fs-14);
+  color: var(--fg-primary);
+  resize: vertical;
+  min-height: 80px;
+  transition: box-shadow var(--dur-fast), border-color var(--dur-fast);
+}
+
+.textarea:focus {
+  border-color: var(--finco-orange);
+  box-shadow: var(--shadow-focus);
+}

@@ -1,0 +1,27 @@
+.split-card {
+  display: grid;
+  grid-template-columns: minmax(280px, 380px) 1fr;
+  background: var(--bg-surface);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-public);
+  border: 1px solid var(--border-hairline);
+  min-height: 540px;
+}
+
+.split-card__panel {
+  display: flex;
+  flex-direction: column;
+  padding: 32px 36px;
+  background: var(--bg-surface);
+}
+
+@media (max-width: 720px) {
+  .split-card {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+  .split-card__panel {
+    padding: 24px 22px;
+  }
+}

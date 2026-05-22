@@ -1,0 +1,23 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-weight: var(--fw-medium);
+  font-size: 11px;
+}
+
+.badge--neutral {
+  background: var(--bg-subtle);
+  color: var(--fg-secondary);
+}
+.badge--brand {
+  background: var(--finco-orange-100);
+  color: var(--finco-orange-700);
+}
+.badge--mono {
+  background: var(--bg-muted);
+  color: var(--fg-primary);
+}

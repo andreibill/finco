@@ -1,0 +1,26 @@
+.icon-btn {
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--dur-fast);
+}
+
+.icon-btn--neutral {
+  color: var(--fg-secondary);
+}
+.icon-btn--danger {
+  color: var(--status-error);
+}
+
+.icon-btn:hover {
+  background: var(--bg-subtle);
+}
+
+.icon-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}

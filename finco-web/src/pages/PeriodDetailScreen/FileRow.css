@@ -1,0 +1,67 @@
+.file-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.file-row:last-child {
+  border-bottom: none;
+}
+.file-row:hover {
+  background: var(--bg-subtle);
+}
+
+.file-row__icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Culori per tip fisier: pdf rosu, xls verde, img albastru, zip portocaliu. */
+.file-icon--pdf {
+  background: var(--status-error-bg);
+  color: var(--status-error-fg);
+}
+.file-icon--xls {
+  background: var(--status-complete-bg);
+  color: var(--status-complete-fg);
+}
+.file-icon--img {
+  background: var(--status-info-bg);
+  color: var(--status-info-fg);
+}
+.file-icon--zip {
+  background: var(--finco-orange-100);
+  color: var(--finco-orange-700);
+}
+
+.file-row__main {
+  flex: 1;
+  min-width: 0;
+}
+
+.file-row__name {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-14);
+  color: var(--fg-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-row__meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--fg-tertiary);
+}
+
+.file-row__actions {
+  display: flex;
+  gap: var(--space-1);
+}

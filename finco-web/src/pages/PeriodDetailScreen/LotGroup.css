@@ -1,0 +1,28 @@
+.lot-group {
+  margin-bottom: 18px;
+}
+
+.lot-group__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: var(--space-2);
+  padding: 0 var(--space-1);
+}
+
+.lot-group__title {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-13);
+  color: var(--fg-secondary);
+}
+
+.lot-group__time {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--fg-tertiary);
+}
+
+.lot-group__spacer {
+  flex: 1;
+}

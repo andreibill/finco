@@ -1,0 +1,9 @@
+.upload-page__loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+  font-family: var(--font-sans);
+  font-size: var(--fs-15);
+  color: var(--fg-secondary);
+}

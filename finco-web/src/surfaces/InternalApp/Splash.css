@@ -1,0 +1,35 @@
+.splash {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6);
+  background: var(--bg-app);
+}
+
+.splash__bar {
+  width: 160px;
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-subtle);
+  overflow: hidden;
+}
+
+.splash__bar-fill {
+  display: block;
+  width: 40%;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--finco-orange);
+  animation: splash-slide 1.1s var(--ease-std) infinite;
+}
+
+@keyframes splash-slide {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(350%);
+  }
+}

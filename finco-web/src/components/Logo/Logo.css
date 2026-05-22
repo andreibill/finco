@@ -1,0 +1,25 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.logo__wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-1);
+}
+
+.logo__name {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  color: var(--finco-graphite);
+  letter-spacing: 0.02em;
+}
+
+.logo__sub {
+  font-family: var(--font-display);
+  font-weight: var(--fw-medium);
+  font-style: italic;
+  color: var(--finco-orange);
+}

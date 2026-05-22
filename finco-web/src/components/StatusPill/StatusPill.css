@@ -1,0 +1,57 @@
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0 10px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-weight: var(--fw-semibold);
+  white-space: nowrap;
+}
+
+.status-pill--md {
+  height: 24px;
+  font-size: var(--fs-12);
+}
+.status-pill--lg {
+  height: 28px;
+  font-size: var(--fs-13);
+}
+
+.status-pill__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.status-pill--empty {
+  background: var(--status-empty-bg);
+  color: var(--status-empty-fg);
+}
+.status-pill--empty .status-pill__dot {
+  background: var(--status-empty);
+}
+
+.status-pill--partial {
+  background: var(--status-partial-bg);
+  color: var(--status-partial-fg);
+}
+.status-pill--partial .status-pill__dot {
+  background: var(--status-partial);
+}
+
+.status-pill--complete {
+  background: var(--status-complete-bg);
+  color: var(--status-complete-fg);
+}
+.status-pill--complete .status-pill__dot {
+  background: var(--status-complete);
+}
+
+.status-pill--error {
+  background: var(--status-error-bg);
+  color: var(--status-error-fg);
+}
+.status-pill--error .status-pill__dot {
+  background: var(--status-error);
+}
