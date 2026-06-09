@@ -18,6 +18,16 @@ matches your task; do not assume — read it.
 - [Backend](rules/backend.md) - planned Java/Spring API: domain packages, layer flow, security.
 - [Domain](rules/domain.md) - glossary, data model, flows, API endpoints (reference).
 
+## Keeping rules in sync (always)
+The rule files are a living contract — keep them honest:
+- **When a rule looks outdated** (the code/structure no longer matches what a rule
+  says, or work you just did contradicts it), stop and **ask the user whether to update
+  the rule** before assuming either side is right. Do not silently follow a stale rule
+  or silently rewrite it.
+- **When the user asks for something that breaks an existing rule**, say so explicitly —
+  name the rule and the conflict — and **ask whether the rule should be updated** (or the
+  request adjusted) before proceeding. Never quietly violate a rule.
+
 ## Source-of-truth documents (at repo root)
 - `finco-specs.md` - domain + backend spec (entities, flows, security).
 - `finco-web.md` - frontend spec, screen-by-screen (the SPA's source of truth).
@@ -48,7 +58,10 @@ Reusable workflows live in [`skills/`](skills/) (one folder per skill, each with
 - [ ] All backend calls go through a service + a React Query hook (no `fetch` in components).
 - [ ] Filters / search / tabs live in the URL (query params), URL is the source of truth.
 - [ ] Plain CSS, one `.css` co-located per component/page. No Tailwind / CSS-in-JS.
-- [ ] Reuse the UI kit (`components/`); extend a primitive instead of duplicating.
+- [ ] `pages/` holds ONLY routable screens (split `public/private`, one page per folder).
+- [ ] Page-specific components live in `features/<surface>/<Page>/`; shared ones in `components/` (cross-screen modals in `components/modals/`).
+- [ ] Reuse the UI kit (`components/`, grouped in functional subfolders); extend the base primitive instead of duplicating (`PasswordInput` wraps `Input`).
+- [ ] Cross-folder imports use `@`-aliases (`@components`, `@hooks`, ...), never `../../..`.
 - [ ] Romanian without diacritics in every user-facing string.
 
 **Backend (when it exists)**

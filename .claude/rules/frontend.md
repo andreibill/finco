@@ -22,7 +22,7 @@ service body to `fetch(API_ROUTES.X)` with zero component changes.
 // WRONG
 await fetch('/api/clients');
 // CORRECT
-import { API_ROUTES } from '../constants/api-routes';
+import { API_ROUTES } from '@constants/api-routes';
 await fetch(API_ROUTES.CLIENTS.LIST);
 ```
 
@@ -61,17 +61,58 @@ filter refetches automatically. State stays shareable, bookmarkable, refresh-pro
 
 ## 6. Plain CSS, co-located, one per file
 Each page and each component has its own dedicated `.css` next to its `.tsx`
-(e.g. `LoginScreen/LoginScreen.tsx` + `LoginScreen/LoginScreen.css`), imported only
+(e.g. `pages/public/Login/Login.tsx` + `pages/public/Login/Login.css`), imported only
 by that file. Shared design tokens stay in `colors_and_type.css`. Do not port the
 prototype's inline `style={{...}}` — translate them to CSS using tokens.
 
-## 7. Reuse the UI kit; extend, don't duplicate
-The UI kit is in `src/components/` (barrel: `components/index.ts`) — `Button`,
-`Input`, `Field`, `Card`, `Modal`, `StatusPill`, `Badge`, `Avatar`, `Toast`/
-`ToastProvider`, `Tabs`, `Toggle`, `Sidebar`, `TopBar`, `Skeleton`, `EmptyState`,
-`SplitCard`, etc. Before creating a component, check the kit. If a primitive almost
-fits, **compose over it** (e.g. `PasswordInput` wraps `Input` and adds the toggle) —
-never re-implement.
+## 7. Three places a component can live — pick by reuse
+A component belongs to exactly one of three tiers. Decide by **how widely it is reused**:
+
+1. **Shared UI kit — `src/components/`** (barrel: `components/index.ts`): generic,
+   domain-agnostic primitives reused across many screens. The kit is grouped into
+   **functional subfolders** — never dump a primitive flat at the kit root:
+   - `forms/` — `Field`, `Input`, `PasswordInput`, `Textarea`, `Toggle`
+   - `buttons/` — `Button`, `IconButton`
+   - `layout/` — `Sidebar`, `TopBar`, `Modal` (generic primitive), `Card`, `SplitCard`
+   - `feedback/` — `Toast`, `ToastProvider`, `Skeleton`, `EmptyState`, `StatusPill`, `Badge`
+   - `media/` — `Icon`, `Logo` (+ `FincoMark`), `Avatar`
+   - `navigation/` — `Tabs`
+   - `modals/` — cross-screen app modals built on the `Modal` primitive
+     (`ClientFormModal`, `RequestDocumentsModal`)
+   - `Seo/` stays at the kit root (head/meta helper, no bucket).
+   A new primitive goes into the matching bucket; create a new bucket only when a
+   primitive genuinely fits none. The barrel re-exports everything, so consumers
+   always import from `@components` (see §11) — they never reference a bucket path.
+2. **Feature-specific — `src/features/<surface>/<Page>/`**: a component that is NOT a
+   page but is specific to ONE screen (e.g. `PeriodRow` belongs only to `ClientDetail`,
+   `LotGroup`/`FileRow` only to `PeriodDetail`, `Hero`/`Contact` only to `Home`). It is
+   still a component, so it does NOT live in `pages/`; but it isn't shared, so it does
+   NOT pollute the UI kit. `<surface>` mirrors the page split (`private` / `public`),
+   `<Page>` matches the page folder name.
+3. **The page itself — `src/pages/<surface>/<Page>/`**: only the routable screen
+   component lives here (one `.tsx` + `.css` per page, nothing else).
+
+Before creating a component, check the kit. If a primitive almost fits,
+**compose over it** (see §7.1 below) — never re-implement. A feature component that
+later gets reused by a second screen graduates to the shared UI kit (`components/`).
+
+### 7.1 Base primitive + composition (uniform design)
+Each family has **one minimal base primitive** that owns the shared look & behavior
+(design, spacing, states, accessibility) and exposes only the essentials. Every
+variant **extends that base** instead of re-styling from scratch, so the whole app
+stays visually uniform and a design tweak lands in one place.
+
+- The base is as small as possible: e.g. `Input` owns the text-field look (border,
+  padding, focus ring, icon slot, error state). `PasswordInput` does **not**
+  re-implement any of that — it wraps `Input`, fixing `type` and adding the
+  show/hide toggle on top. `IconButton` composes the `Icon` + `Button` look rather
+  than styling a new button.
+- Build a variant by **wrapping the base and layering on top** (extra props, an
+  extra slot, a fixed prop), never by copying the base's CSS into a sibling.
+- Reuse the base's prop type: `type PasswordInputProps = Omit<InputProps, "type">`
+  keeps the surfaces in sync automatically.
+- When you find yourself duplicating a base's styles in another component, stop and
+  refactor it to compose over the base instead.
 
 ## 8. Folder structure (by type/domain first, then feature)
 ```
@@ -85,19 +126,47 @@ finco-web/src/
   services/             # one *.service.ts per domain -> ApiResponse<T>
   hooks/                # React Query per domain + queryKeys.ts, unwrap.ts
   contexts/             # AuthContext, RequestModalContext
-  components/            # reusable UI kit, each in its own folder (.tsx + .css)
-  pages/                # one folder per screen (.tsx + .css); screen-local parts stay here
-  surfaces/             # InternalApp/ (cabinet container + auth gate) + PublicApp/
+  components/           # reusable UI kit, grouped into functional subfolders (.tsx + .css per folder)
+    forms/              #   Field, Input, PasswordInput, Textarea, Toggle
+    buttons/            #   Button, IconButton
+    layout/             #   Sidebar, TopBar, Modal, Card, SplitCard
+    feedback/           #   Toast, ToastProvider, Skeleton, EmptyState, StatusPill, Badge
+    media/              #   Icon, Logo (+FincoMark), Avatar
+    navigation/         #   Tabs
+    modals/             #   cross-screen modals (ClientFormModal, RequestDocumentsModal)
+    Seo/                #   head/meta helper (kit root, no bucket)
+    index.ts            #   barrel — the single public entry (@components)
+  pages/                # ONLY routable screens, split public/private, one page per folder
+    private/            # require auth: Library, ClientDetail, PeriodDetail, Requests, Settings
+    public/             # no auth: Home, Login, Upload, RequestLink
+  features/             # page-specific components (NOT pages), mirrors the pages split
+    private/            #   ClientDetail/PeriodRow, Library/{ClientRow,KpiCard,SegmentedFilter}, ...
+    public/             #   Home/{Hero,About,Contact,...}, Upload/{DropZone,FileTile,...}
+  surfaces/             # InternalApp/ (cabinet container + auth gate) + PublicApp/ (+ PublicShell)
   utils/                # formatPeriodLabel, etc.
 ```
-Screen-local composites (e.g. `KpiCard`, `ClientRow`, `LotGroup`, `FileRow`,
-`ClientPicker`, `DropZone`) stay with their screen; only promote to `components/`
-if reused across screens (like `SplitCard`).
+
+**`pages/` vs `features/` (the rule):**
+- `pages/<surface>/<Page>/` holds **only** the routable screen — exactly one
+  `.tsx` + `.css`. No sub-components, no modals.
+- A screen-local part (a component that isn't a page and isn't reused elsewhere) goes
+  in `features/<surface>/<Page>/` — same `<surface>` (`private`/`public`) and `<Page>`
+  name as the page it serves. Examples: `KpiCard`, `ClientRow`, `SegmentedFilter`
+  (Library), `PeriodRow` (ClientDetail), `LotGroup`, `FileRow` (PeriodDetail),
+  `RequestRow` (Requests), `Hero`/`About`/`Contact`/`Services`/`SiteHeader`/`SiteFooter`
+  (Home), `DropZone`/`FileTile`/`HeroPanel`/`UploadRightPanel`/`ExpiredPanel`/
+  `SuccessPanel` (Upload).
+- A page with no specific parts (Login, Settings, RequestLink) gets **no** feature
+  folder — it is just the page in `pages/`.
+- When a feature component starts being reused by a second screen, promote it to the
+  shared UI kit (`components/`), like `SplitCard`.
+- `PublicShell` (the public-surface layout wrapper) lives with its surface in
+  `surfaces/PublicApp/PublicShell/`, not in `pages/`.
 
 ## 9. Auth gate (cabinet only)
 `AuthContext` wraps the cabinet surface (clients have no account). Two-phase gate in
-`InternalApp`: while `isHydrating`, show a splash (not LoginScreen, to avoid a login
-flash); after hydration, `!authed` -> LoginScreen, else Shell + routed screen. Mock
+`InternalApp`: while `isHydrating`, show a splash (not the Login page, to avoid a login
+flash); after hydration, `!authed` -> Login, else Shell + routed screen. Mock
 auth persists an `authed` flag in `localStorage`. The real token would be an httpOnly
 cookie — never in JS.
 
@@ -112,3 +181,38 @@ cookie — never in JS.
   `!automat && created_by === 'public'` -> "public"; else "custom".
 - StatusPill keeps its text, never color-only (a11y).
 - Verify with `npm run build` and `npx tsc --noEmit` (both must pass clean).
+
+## 11. Path aliases (no `../../..` for cross-folder imports)
+Every top-level `src/` folder has a `@`-alias. Imports that cross a folder boundary
+use the alias; **never** climb with `../../../`. Aliases are defined in **two places,
+kept in sync**: `paths` in `tsconfig.app.json` and `resolve.alias` in `vite.config.ts`.
+
+| Alias | Folder | Alias | Folder |
+|-------|--------|-------|--------|
+| `@components` | `src/components` (barrel) | `@hooks/*` | `src/hooks` |
+| `@constants/*` | `src/constants` | `@services/*` | `src/services` |
+| `@contexts/*` | `src/contexts` | `@mocks/*` | `src/mocks` |
+| `@features/*` | `src/features` | `@types` | `src/types` |
+| `@pages/*` | `src/pages` | `@utils` | `src/utils` |
+| `@surfaces/*` | `src/surfaces` | | |
+
+Rules:
+- **Kit consumers import from the barrel:** `import { Button, Icon } from '@components'`
+  — never reach into a bucket (`@components/buttons/Button/Button`) from outside the kit.
+- **Inside the kit**, components import siblings by **direct alias path**
+  (`@components/media/Icon/Icon`), not the barrel — importing the barrel from within
+  would create a cycle. App modals (`components/modals/*`) are not in the barrel, so
+  they too are imported by direct path (`@components/modals/.../X`).
+- **Co-located files stay relative:** a component's own `./X.css` (and a same-folder
+  helper) keep `./` — aliases are only for crossing folders.
+- Files at the `src` root (`AppRouter`, `main`) have no alias; import them relatively.
+- Adding a new top-level `src/` folder = add the alias to **both** config files.
+
+```ts
+// WRONG
+import { useClients } from '../../../hooks/useClients';
+import { Field } from '../../../components/Field/Field';
+// CORRECT
+import { useClients } from '@hooks/useClients';
+import { Field } from '@components';
+```
