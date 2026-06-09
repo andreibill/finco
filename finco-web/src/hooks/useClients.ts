@@ -4,12 +4,13 @@ import { unwrap } from "@hooks/unwrap";
 import { queryKeys } from "@hooks/queryKeys";
 import type { ClientFormValues } from "@types";
 
-// Filtrele (cautare + status) vin din URL si fac parte din cheia de query.
-// Filtrarea ramane client-side in mock; in prod aceiasi parametri merg server-side.
-export function useClients(filters: { cauta: string; status: string }) {
+// Filtrele (cautare + status + perioada) vin din URL si fac parte din cheia de
+// query. Cautarea/statusul raman client-side in mock; perioada decide ce status
+// afiseaza serviciul. In prod aceiasi parametri merg server-side.
+export function useClients(filters: { cauta: string; status: string; period?: string }) {
   return useQuery({
     queryKey: queryKeys.clients(filters),
-    queryFn: () => unwrap(clientsService.list()),
+    queryFn: () => unwrap(clientsService.list(filters.period)),
     select: (clients) => {
       const cauta = filters.cauta.trim().toLowerCase();
       return clients.filter((c) => {
@@ -24,11 +25,20 @@ export function useClients(filters: { cauta: string; status: string }) {
   });
 }
 
-// Toti clientii (fara filtre) — pentru KPI-uri si ClientPicker.
-export function useAllClients() {
+// Toti clientii (fara filtre de cautare) — pentru KPI-uri si ClientPicker.
+// Optional pe o perioada; implicit perioada curenta.
+export function useAllClients(period?: string) {
   return useQuery({
-    queryKey: queryKeys.clients(),
-    queryFn: () => unwrap(clientsService.list()),
+    queryKey: queryKeys.clients(period ? { period } : undefined),
+    queryFn: () => unwrap(clientsService.list(period)),
+  });
+}
+
+// Perioadele disponibile (an_luna), pentru selectorul de perioada din Biblioteca.
+export function useAvailablePeriods() {
+  return useQuery({
+    queryKey: queryKeys.periodsList,
+    queryFn: () => unwrap(clientsService.availablePeriods()),
   });
 }
 
@@ -59,6 +69,19 @@ export function useUpdateClient(id: string) {
   return useMutation({
     mutationFn: (values: ClientFormValues) => unwrap(clientsService.update(id, values)),
     onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["clients"] });
+      qc.invalidateQueries({ queryKey: queryKeys.client(id) });
+    },
+  });
+}
+
+// Activeaza / dezactiveaza un client (soft, fara stergere — vezi serviciu).
+export function useSetClientActive() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, activ }: { id: string; activ: boolean }) =>
+      unwrap(clientsService.setActive(id, activ)),
+    onSuccess: (_data, { id }) => {
       qc.invalidateQueries({ queryKey: ["clients"] });
       qc.invalidateQueries({ queryKey: queryKeys.client(id) });
     },

@@ -8,6 +8,7 @@ export type InputProps = {
   type?: string;
   iconLeft?: string;
   error?: boolean;
+  disabled?: boolean;
   autoFocus?: boolean;
   id?: string;
   name?: string;
@@ -25,6 +26,7 @@ export function Input({
   type = "text",
   iconLeft,
   error,
+  disabled,
   autoFocus,
   id,
   name,
@@ -35,7 +37,7 @@ export function Input({
   onBlur,
 }: InputProps) {
   return (
-    <div className={`input-wrap${error ? " input-wrap--error" : ""}`}>
+    <div className={`input-wrap${error ? " input-wrap--error" : ""}${disabled ? " input-wrap--disabled" : ""}`}>
       {iconLeft && (
         <span className="input-wrap__icon">
           <Icon name={iconLeft} size={16} />
@@ -48,6 +50,7 @@ export function Input({
         type={type}
         value={value}
         placeholder={placeholder}
+        disabled={disabled}
         autoFocus={autoFocus}
         inputMode={inputMode}
         aria-describedby={ariaDescribedBy}

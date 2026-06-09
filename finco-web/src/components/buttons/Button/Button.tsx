@@ -1,7 +1,14 @@
 import { Icon } from "@components/media/Icon/Icon";
 import "./Button.css";
 
-export type ButtonVariant = "primary" | "secondary" | "ghost" | "danger" | "inverse";
+export type ButtonVariant =
+  | "primary"
+  | "secondary"
+  | "ghost"
+  | "danger"
+  | "danger-soft"
+  | "success-soft"
+  | "inverse";
 export type ButtonSize = "sm" | "md" | "lg";
 
 export type ButtonProps = {

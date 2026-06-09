@@ -1,0 +1,17 @@
+.link-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-family: var(--font-sans);
+  font-size: var(--fs-13);
+  white-space: nowrap;
+}
+.link-status--ok {
+  color: var(--fg-secondary);
+}
+.link-status--err {
+  color: var(--status-error-fg);
+}
+.link-status--muted {
+  color: var(--fg-tertiary);
+}

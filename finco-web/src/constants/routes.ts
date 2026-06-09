@@ -10,6 +10,10 @@ export const ROUTES = {
     ROOT: APP_PREFIX,
     LOGIN: `${APP_PREFIX}/login`,
     BIBLIOTECA: `${APP_PREFIX}/biblioteca`,
+    CLIENTI: `${APP_PREFIX}/clienti`,
+    // Detaliu biblioteca pe client (perioadele clientului). Pagina e deocamdata
+    // o copie a vechiului ClientDetail; va fi implementata complet ulterior.
+    BIBLIOTECA_CLIENT: (id: string) => `${APP_PREFIX}/biblioteca/${id}`,
     CLIENT: (id: string) => `${APP_PREFIX}/clienti/${id}`,
     PERIOD: (clientId: string, periodId: string) =>
       `${APP_PREFIX}/clienti/${clientId}/perioade/${periodId}`,

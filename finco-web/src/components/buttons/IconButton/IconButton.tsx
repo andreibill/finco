@@ -7,7 +7,7 @@ export type IconButtonProps = {
   onClick?: () => void;
   size?: number;
   iconSize?: number;
-  tone?: "neutral" | "danger";
+  tone?: "neutral" | "danger" | "brand" | "brand-solid";
 };
 
 export function IconButton({

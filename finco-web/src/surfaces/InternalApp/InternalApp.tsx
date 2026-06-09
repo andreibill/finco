@@ -2,12 +2,15 @@ import { useState } from "react";
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import { AuthProvider, useAuth } from "@contexts/AuthContext";
 import { RequestModalContext } from "@contexts/RequestModalContext";
+import { BibliotecaPeriodProvider } from "@contexts/BibliotecaPeriodContext";
 import { LayoutContext } from "@surfaces/InternalApp/LayoutContext";
 import { Splash } from "@surfaces/InternalApp/Splash";
 import { Sidebar } from "@components";
 import { RequestDocumentsModal } from "@components/modals/RequestDocumentsModal/RequestDocumentsModal";
 import { Login } from "@pages/public/Login/Login";
 import { Library } from "@pages/private/Library/Library";
+import { BibliotecaClient } from "@pages/private/BibliotecaClient/BibliotecaClient";
+import { Clienti } from "@pages/private/Clienti/Clienti";
 import { ClientDetail } from "@pages/private/ClientDetail/ClientDetail";
 import { PeriodDetail } from "@pages/private/PeriodDetail/PeriodDetail";
 import { Requests } from "@pages/private/Requests/Requests";
@@ -51,6 +54,16 @@ function ShellLayout() {
   );
 }
 
+// Layout pentru suprafata Biblioteca: ofera contextul de perioada partajat
+// intre lista (/biblioteca) si detaliul clientului (/biblioteca/:id).
+function BibliotecaLayout() {
+  return (
+    <BibliotecaPeriodProvider>
+      <Outlet />
+    </BibliotecaPeriodProvider>
+  );
+}
+
 // Auth gate cu doua faze: hidratare (Splash) -> login / shell.
 function InternalRoutes() {
   const { authed, isHydrating } = useAuth();
@@ -65,7 +78,12 @@ function InternalRoutes() {
       />
       <Route element={authed ? <ShellLayout /> : <Navigate to={ROUTES.APP.LOGIN} replace />}>
         <Route index element={<Navigate to={ROUTES.APP.BIBLIOTECA} replace />} />
-        <Route path="biblioteca" element={<Library />} />
+        {/* Suprafata Biblioteca imparte o singura perioada selectata. */}
+        <Route element={<BibliotecaLayout />}>
+          <Route path="biblioteca" element={<Library />} />
+          <Route path="biblioteca/:id" element={<BibliotecaClient />} />
+        </Route>
+        <Route path="clienti" element={<Clienti />} />
         <Route path="clienti/:id" element={<ClientDetail />} />
         <Route path="clienti/:id/perioade/:periodId" element={<PeriodDetail />} />
         <Route path="cereri" element={<Requests />} />

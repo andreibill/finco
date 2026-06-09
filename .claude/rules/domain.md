@@ -19,7 +19,9 @@ Condensed glossary, data model and flows. Full detail in `finco-specs.md`.
   `are_upload && !finalizat` = partial; `finalizat` = done (employee closed it).
 
 ## Data model (key fields)
-- `user`: id, email (unique), parola (BCrypt), nume, notificari_active.
+- `user`: id, email (unique), parola (BCrypt), nume, notificari_active, is_admin.
+  Doua roluri de angajat: `is_admin=true` (administrator, poate face actiuni extra)
+  vs angajat obisnuit. Nu exista alte roluri.
 - `client`: id, nume, email (unique), activ, zi_trimitere (1-28).
 - `period`: id, client_id, an_luna, are_upload, finalizat. Unique `(client_id, an_luna)`.
 - `upload_link`: id, client_id, period_id, token, automat, expira_la, folosit, created_by.
@@ -59,7 +61,12 @@ Profile: `GET /api/me`, `PUT /api/me/notifications`.
 All return `ApiResponse<T>`. The full route map is mirrored in
 `finco-web/src/constants/api-routes.ts`.
 
+## Roles
+Two employee roles only: **administrator** (`user.is_admin=true`) and ordinary
+employee. Admins can perform extra actions; otherwise both see the same cabinet
+screens. There are no finer-grained permissions in stage 1.
+
 ## Out of scope (stage 1)
-Required-file validation, employee roles, multi-tenant, email open/click tracking,
-WhatsApp integration, OCR, targeting past months (re-request & custom target the
-current month only).
+Required-file validation, finer-grained roles/permissions beyond admin/non-admin,
+multi-tenant, email open/click tracking, WhatsApp integration, OCR, targeting past
+months (re-request & custom target the current month only).

@@ -12,6 +12,7 @@ const STORAGE_USER = "finco.user";
 type AuthContextValue = {
   user: User | null;
   authed: boolean;
+  isAdmin: boolean;
   isHydrating: boolean;
   login: (creds: LoginCredentials) => Promise<void>;
   logout: () => void;
@@ -66,7 +67,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [navigate]);
 
   return (
-    <AuthContext.Provider value={{ user, authed: !!user, isHydrating, login, logout }}>
+    <AuthContext.Provider
+      value={{ user, authed: !!user, isAdmin: !!user?.isAdmin, isHydrating, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -76,4 +79,18 @@ export function useAuth(): AuthContextValue {
   const ctx = useContext(AuthContext);
   if (!ctx) throw new Error("useAuth trebuie folosit in interiorul AuthProvider");
   return ctx;
+}
+
+// Randeaza copiii doar pentru un administrator. Pentru angajatii obisnuiti
+// afiseaza optional un fallback (implicit nimic). Folosit pentru a ascunde
+// actiuni/sectiuni rezervate adminilor in paginile cabinetului.
+export function AdminOnly({
+  children,
+  fallback = null,
+}: {
+  children: React.ReactNode;
+  fallback?: React.ReactNode;
+}) {
+  const { isAdmin } = useAuth();
+  return <>{isAdmin ? children : fallback}</>;
 }

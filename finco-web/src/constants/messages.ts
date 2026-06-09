@@ -14,6 +14,9 @@ export const MESSAGES = {
   // Client
   CLIENT_SAVED: "Client salvat.",
   CLIENT_SAVING: "Se salveaza...",
+  CLIENT_DEACTIVATED: "Client dezactivat.",
+  CLIENT_ACTIVATED: "Client reactivat.",
+  CLIENT_STATUS_UPDATING: "Se actualizeaza...",
   // Perioada
   PERIOD_FINALIZED: "Perioada marcata ca finalizata.",
   // Generic

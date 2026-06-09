@@ -15,9 +15,24 @@
 .icon-btn--danger {
   color: var(--status-error);
 }
+.icon-btn--brand {
+  color: var(--finco-orange);
+}
+/* Plin: actiune evidenta (fundal portocaliu, iconita alba) — iese in evidenta. */
+.icon-btn--brand-solid {
+  background: var(--finco-orange);
+  color: var(--fg-on-brand);
+  box-shadow: var(--shadow-cta-orange);
+}
 
 .icon-btn:hover {
   background: var(--bg-subtle);
+}
+.icon-btn--brand:hover {
+  background: var(--finco-orange-100);
+}
+.icon-btn--brand-solid:hover {
+  background: var(--finco-orange-600);
 }
 
 .icon-btn:focus-visible {

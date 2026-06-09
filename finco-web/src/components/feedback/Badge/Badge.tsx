@@ -1,6 +1,6 @@
 import "./Badge.css";
 
-export type BadgeVariant = "neutral" | "brand" | "mono";
+export type BadgeVariant = "neutral" | "brand" | "mono" | "success";
 
 export type BadgeProps = {
   children: React.ReactNode;

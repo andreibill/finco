@@ -22,6 +22,23 @@
   box-shadow: var(--shadow-focus-error);
 }
 
+.input-wrap--disabled {
+  background: var(--bg-muted);
+  border-color: var(--border-subtle);
+}
+.input-wrap--disabled:focus-within {
+  border-color: var(--border-subtle);
+  box-shadow: none;
+}
+.input-wrap--disabled .input-wrap__icon {
+  color: var(--fg-disabled);
+}
+
+.input:disabled {
+  color: var(--fg-disabled);
+  cursor: not-allowed;
+}
+
 .input-wrap__icon {
   position: absolute;
   left: 12px;

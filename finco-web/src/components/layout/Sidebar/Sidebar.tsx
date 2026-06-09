@@ -16,8 +16,9 @@ export type SidebarProps = {
 type NavItem = { label: string; icon: string; to: string; matchPrefixes: string[] };
 
 const NAV_ITEMS: NavItem[] = [
-  // Biblioteca acopera si detaliul clientului / perioadei (raman evidentiate aici).
-  { label: "Biblioteca", icon: "folder-open", to: ROUTES.APP.BIBLIOTECA, matchPrefixes: [ROUTES.APP.BIBLIOTECA, `${ROUTES.APP.ROOT}/clienti`] },
+  { label: "Biblioteca", icon: "folder-open", to: ROUTES.APP.BIBLIOTECA, matchPrefixes: [ROUTES.APP.BIBLIOTECA] },
+  // Clienti acopera si detaliul clientului / perioadei (raman evidentiate aici).
+  { label: "Clienti", icon: "users", to: ROUTES.APP.CLIENTI, matchPrefixes: [ROUTES.APP.CLIENTI] },
   { label: "Cereri trimise", icon: "mail", to: ROUTES.APP.CERERI, matchPrefixes: [ROUTES.APP.CERERI] },
   { label: "Setari", icon: "settings", to: ROUTES.APP.SETARI, matchPrefixes: [ROUTES.APP.SETARI] },
 ];

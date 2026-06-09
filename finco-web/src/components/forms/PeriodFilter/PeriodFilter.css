@@ -1,0 +1,67 @@
+/* Control de filtrare dupa perioada — aliniat vizual cu Input din UI kit. */
+.period-filter {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 38px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-default);
+  background: var(--bg-surface);
+  transition: box-shadow var(--dur-fast), border-color var(--dur-fast);
+}
+
+.period-filter:focus-within {
+  border-color: var(--finco-orange);
+  box-shadow: var(--shadow-focus);
+}
+
+.period-filter--active {
+  border-color: var(--finco-orange);
+}
+
+.period-filter__icon {
+  position: absolute;
+  left: 10px;
+  color: var(--fg-tertiary);
+  pointer-events: none;
+}
+
+.period-filter__select {
+  appearance: none;
+  -webkit-appearance: none;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0 32px 0 32px;
+  font-family: var(--font-sans);
+  font-size: var(--fs-13);
+  color: var(--fg-primary);
+  cursor: pointer;
+  border-radius: var(--radius-md);
+}
+
+.period-filter__chevron {
+  position: absolute;
+  right: 10px;
+  color: var(--fg-tertiary);
+  pointer-events: none;
+}
+
+.period-filter__clear {
+  position: absolute;
+  right: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--fg-tertiary);
+  border-radius: var(--radius-sm);
+}
+
+.period-filter__clear:hover {
+  color: var(--fg-primary);
+}

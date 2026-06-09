@@ -78,6 +78,23 @@
   background: var(--status-error-hover);
 }
 
+/* Variante "soft": acelasi format, doar culoarea difera (tinte calme, ca Badge). */
+.btn--danger-soft {
+  background: var(--status-error-bg);
+  color: var(--status-error-fg);
+}
+.btn--danger-soft:not(:disabled):hover {
+  border-color: var(--status-error-border);
+}
+
+.btn--success-soft {
+  background: var(--status-complete-bg);
+  color: var(--status-complete-fg);
+}
+.btn--success-soft:not(:disabled):hover {
+  border-color: var(--status-complete-border);
+}
+
 .btn--inverse {
   background: var(--finco-graphite-900);
   color: var(--fg-on-dark);

@@ -21,3 +21,7 @@
   background: var(--bg-muted);
   color: var(--fg-primary);
 }
+.badge--success {
+  background: var(--status-complete-bg);
+  color: var(--status-complete-fg);
+}
