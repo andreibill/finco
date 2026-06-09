@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Field, Input, Icon } from "@components";
+import { Field, Input, Icon, Seo } from "@components";
+import { ROUTES } from "@constants/routes";
+import { SiteLayout } from "@surfaces/PublicApp/SiteLayout/SiteLayout";
 import { useRequestLink } from "@hooks/usePublic";
 import "./RequestLink.css";
 
@@ -18,7 +20,9 @@ export function RequestLink() {
   };
 
   return (
-    <div className="request-link">
+    <SiteLayout mainClassName="site-layout__main--narrow">
+      <Seo title="Cere un link nou — FINCO Expert" path={ROUTES.PUBLIC.CERE_LINK} noindex />
+      <div className="request-link">
       <div className="request-link__card">
         {sent ? (
           <div>
@@ -61,6 +65,7 @@ export function RequestLink() {
       <div className="request-link__note">
         Cererile sunt limitate pentru a preveni abuzul. Daca nu primiti email, contactati cabinetul direct.
       </div>
-    </div>
+      </div>
+    </SiteLayout>
   );
 }

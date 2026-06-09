@@ -5,10 +5,12 @@ import { ROUTES } from "@constants/routes";
 import { SECTIONS } from "@constants/company";
 import "./SiteHeader.css";
 
+// Ancore catre sectiunile de pe Home. Folosim calea completa (/#sectiune) ca
+// linkul sa mearga si din alte pagini publice; useHashScroll deruleaza apoi.
 const NAV = [
-  { label: "Servicii", href: `#${SECTIONS.SERVICII}` },
-  { label: "Despre", href: `#${SECTIONS.DESPRE}` },
-  { label: "Contact", href: `#${SECTIONS.CONTACT}` },
+  { label: "Servicii", to: `${ROUTES.PUBLIC.HOME}#${SECTIONS.SERVICII}` },
+  { label: "Despre", to: `${ROUTES.PUBLIC.HOME}#${SECTIONS.DESPRE}` },
+  { label: "Contact", to: `${ROUTES.PUBLIC.HOME}#${SECTIONS.CONTACT}` },
 ];
 
 // Antet fix al site-ului public: logo, meniu cu ancore, autentificare cabinet si
@@ -26,20 +28,13 @@ export function SiteHeader() {
 
         <nav className={`site-header__nav${open ? " site-header__nav--open" : ""}`}>
           {NAV.map((item) => (
-            <a key={item.href} href={item.href} className="site-header__link" onClick={close}>
+            <Link key={item.to} to={item.to} className="site-header__link" onClick={close}>
               {item.label}
-            </a>
+            </Link>
           ))}
           <Link
-            to={ROUTES.APP.LOGIN}
-            className="site-header__link site-header__link--muted"
-            onClick={close}
-          >
-            Autentificare cabinet
-          </Link>
-          <Link
             to={ROUTES.PUBLIC.CERE_LINK}
-            className="btn btn--primary btn--md site-header__cta"
+            className="site-header__link site-header__cta"
             onClick={close}
           >
             <Icon name="upload" size={14} />

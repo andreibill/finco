@@ -1,16 +1,18 @@
+/* Acelasi look ca bara de pe upload (PublicShell): suprafata deschisa, linkuri
+   plate cu iconita + text. Ramane sticky pe o suprafata solida, fiindca pagina
+   de prezentare e lunga. */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: var(--on-dark-strong);
-  backdrop-filter: saturate(180%) blur(10px);
+  background: var(--bg-surface);
   border-bottom: 1px solid var(--border-subtle);
 }
 
 .site-header__inner {
   max-width: var(--container-base);
   margin: 0 auto;
-  padding: var(--space-3) var(--space-6);
+  padding: var(--space-4) var(--space-6);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -30,8 +32,11 @@
 }
 
 .site-header__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
   font-family: var(--font-sans);
-  font-size: var(--fs-14);
+  font-size: var(--fs-13);
   font-weight: var(--fw-medium);
   color: var(--fg-secondary);
   text-decoration: none;
@@ -41,12 +46,14 @@
   color: var(--fg-primary);
 }
 
-.site-header__link--muted {
-  color: var(--fg-tertiary);
-}
-
+/* Actiunea principala: link plat, dar evidentiat cu culoarea de brand. */
 .site-header__cta {
-  text-decoration: none;
+  color: var(--fg-brand);
+  font-weight: var(--fw-bold);
+}
+.site-header__cta:hover {
+  color: var(--fg-brand);
+  opacity: 0.85;
 }
 
 .site-header__toggle {

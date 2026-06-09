@@ -5,28 +5,24 @@ import { Upload } from "@pages/public/Upload/Upload";
 import { RequestLink } from "@pages/public/RequestLink/RequestLink";
 import { ROUTES } from "@constants/routes";
 
-// Containerul suprafetei publice. Radacina este site-ul de prezentare (Home);
-// fluxurile de upload pastreaza chenarul lor (PublicShell) si sunt noindex.
+// Containerul suprafetei publice. Paginile "de site" (Home, Cere link) isi poarta
+// propriul chenar (SiteLayout) si sunt interconectate; fluxul de upload legat prin
+// token ramane in chenarul minimal, focusat (PublicShell) si este noindex.
 export default function PublicApp() {
   return (
     <Routes>
       {/* Site-ul de prezentare al cabinetului. */}
       <Route index element={<Home />} />
 
-      {/* Fluxuri publice legate prin token, in chenarul de upload. */}
+      {/* Cere un link nou: pagina publica de sine statatoare (chenar complet). */}
+      <Route path="cere-link" element={<RequestLink />} />
+
+      {/* Flux de upload legat prin token: chenar minimal, focusat. */}
       <Route
         path="upload/:token"
         element={
           <PublicShell seoTitle="Incarca documente — FINCO Expert">
             <Upload />
-          </PublicShell>
-        }
-      />
-      <Route
-        path="cere-link"
-        element={
-          <PublicShell seoTitle="Cere un link nou — FINCO Expert">
-            <RequestLink />
           </PublicShell>
         }
       />

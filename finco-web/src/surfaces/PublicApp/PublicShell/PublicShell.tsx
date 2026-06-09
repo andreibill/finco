@@ -15,11 +15,19 @@ export function PublicShell({ children, seoTitle = "FINCO Expert" }: PublicShell
     <div className="public-shell">
       <Seo title={seoTitle} path={ROUTES.PUBLIC.HOME} noindex />
       <header className="public-shell__header">
-        <Logo size={26} />
-        <Link className="public-shell__link" to={ROUTES.PUBLIC.CERE_LINK}>
-          <Icon name="link" size={14} />
-          Cere un link nou
+        <Link className="public-shell__brand" to={ROUTES.PUBLIC.HOME}>
+          <Logo size={26} />
         </Link>
+        <nav className="public-shell__nav">
+          <Link className="public-shell__link" to={ROUTES.PUBLIC.HOME}>
+            <Icon name="home" size={14} />
+            Acasa
+          </Link>
+          <Link className="public-shell__link" to={ROUTES.PUBLIC.CERE_LINK}>
+            <Icon name="link" size={14} />
+            Cere un link nou
+          </Link>
+        </nav>
       </header>
       <main className="public-shell__main">
         <div className="public-shell__container">{children}</div>

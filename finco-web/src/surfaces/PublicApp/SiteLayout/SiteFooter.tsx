@@ -27,9 +27,9 @@ export function SiteFooter() {
 
         <nav className="site-footer__col">
           <span className="site-footer__col-title">Navigare</span>
-          <a href={`#${SECTIONS.SERVICII}`}>Servicii</a>
-          <a href={`#${SECTIONS.DESPRE}`}>Despre noi</a>
-          <a href={`#${SECTIONS.CONTACT}`}>Contact</a>
+          <Link to={`${ROUTES.PUBLIC.HOME}#${SECTIONS.SERVICII}`}>Servicii</Link>
+          <Link to={`${ROUTES.PUBLIC.HOME}#${SECTIONS.DESPRE}`}>Despre noi</Link>
+          <Link to={`${ROUTES.PUBLIC.HOME}#${SECTIONS.CONTACT}`}>Contact</Link>
         </nav>
 
         <nav className="site-footer__col">

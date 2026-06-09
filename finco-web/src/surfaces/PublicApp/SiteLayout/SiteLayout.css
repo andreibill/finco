@@ -1,0 +1,21 @@
+/* Scroll lin la click pe ancorele din meniu (Servicii/Despre/Contact). */
+html {
+  scroll-behavior: smooth;
+}
+
+.site-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-app);
+}
+
+.site-layout__main {
+  flex: 1;
+}
+
+/* Varianta pentru paginile de tip formular (ex: Cere link): gutere si spatiere
+   verticala, continutul ramane centrat prin propriul max-width. */
+.site-layout__main--narrow {
+  padding: var(--space-20) var(--space-6);
+}

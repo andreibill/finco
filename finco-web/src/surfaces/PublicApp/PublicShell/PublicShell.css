@@ -15,6 +15,17 @@
   justify-content: space-between;
 }
 
+.public-shell__brand {
+  display: inline-flex;
+  align-items: center;
+}
+
+.public-shell__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
 .public-shell__link {
   display: inline-flex;
   align-items: center;
