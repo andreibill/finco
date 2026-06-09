@@ -1,11 +1,16 @@
 .request-row {
   border-bottom: 1px solid var(--border-subtle);
+  cursor: pointer;
 }
 .request-row:last-child {
   border-bottom: none;
 }
 .request-row:hover {
   background: var(--bg-subtle);
+}
+.request-row:focus-visible {
+  outline: 2px solid var(--finco-orange);
+  outline-offset: -2px;
 }
 
 .request-row td {

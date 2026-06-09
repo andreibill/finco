@@ -3,10 +3,26 @@ import { requestType } from "@utils/format";
 import type { DocumentRequest } from "@types";
 import "./RequestRow.css";
 
-export function RequestRow({ request }: { request: DocumentRequest }) {
+type RequestRowProps = {
+  request: DocumentRequest;
+  onClick: (request: DocumentRequest) => void;
+};
+
+export function RequestRow({ request, onClick }: RequestRowProps) {
   const type = requestType(request);
   return (
-    <tr className="request-row">
+    <tr
+      className="request-row"
+      role="button"
+      tabIndex={0}
+      onClick={() => onClick(request)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onClick(request);
+        }
+      }}
+    >
       <td>
         {request.email_trimis ? (
           <span className="request-row__status request-row__status--ok">

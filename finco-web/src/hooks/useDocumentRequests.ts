@@ -17,3 +17,11 @@ export function useCreateRequest() {
     onSuccess: () => qc.invalidateQueries({ queryKey: queryKeys.documentRequests }),
   });
 }
+
+export function useRetryRequest() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => unwrap(documentRequestsService.retry(id)),
+    onSuccess: () => qc.invalidateQueries({ queryKey: queryKeys.documentRequests }),
+  });
+}

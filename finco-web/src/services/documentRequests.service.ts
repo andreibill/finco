@@ -39,4 +39,17 @@ export const documentRequestsService = {
     store.requests.unshift(req);
     return ok({ ...req }, "Link trimis catre client.");
   },
+
+  // POST /api/document-requests/{id}/retry — retrimite un email esuat.
+  async retry(id: string): Promise<ApiResponse<DocumentRequest>> {
+    void API_ROUTES.DOCUMENT_REQUESTS.RETRY(id);
+    await delay(700);
+    const req = store.requests.find((r) => r.id === id);
+    if (!req) return fail("Cererea nu a fost gasita.");
+    if (req.email_trimis) return fail("Email-ul a fost deja trimis.");
+    req.email_trimis = true;
+    req.eroare = undefined;
+    req.created = "acum";
+    return ok({ ...req }, "Email retrimis catre client.");
+  },
 };
