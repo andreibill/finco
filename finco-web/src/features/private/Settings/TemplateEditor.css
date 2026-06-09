@@ -1,0 +1,31 @@
+.template-editor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.template-editor__head {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.template-editor__name {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-15);
+  color: var(--fg-primary);
+}
+
+.template-editor__desc {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--fs-13);
+  color: var(--fg-tertiary);
+}
+
+.template-editor__actions {
+  display: flex;
+  justify-content: flex-end;
+}

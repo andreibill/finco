@@ -45,6 +45,25 @@
   margin-top: 2px;
 }
 
+.settings__hint {
+  margin: -6px 0 var(--space-4);
+  font-family: var(--font-sans);
+  font-size: var(--fs-13);
+  color: var(--fg-tertiary);
+}
+
+/* Lista de sabloane: separator intre editoare. */
+.settings__templates {
+  display: flex;
+  flex-direction: column;
+}
+
+.settings__templates > * + * {
+  margin-top: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--border-subtle);
+}
+
 @media (max-width: 1024px) {
   .settings {
     padding: 16px;
