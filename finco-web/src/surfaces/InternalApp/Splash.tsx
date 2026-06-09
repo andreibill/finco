@@ -1,8 +1,8 @@
-import { Logo } from "../../components/Logo/Logo";
+import { Logo } from "@components";
 import "./Splash.css";
 
 // Ecran de incarcare in timpul fazei de hidratare (isHydrating). Evita
-// palpairea LoginScreen inainte sa stim daca utilizatorul e deja logat.
+// palpairea Login inainte sa stim daca utilizatorul e deja logat.
 export function Splash() {
   return (
     <div className="splash">

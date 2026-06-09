@@ -1,8 +1,8 @@
-import { API_ROUTES } from "../constants/api-routes";
-import { delay } from "../mocks/delay";
-import { CURRENT_PERIOD, CURRENT_PERIOD_LABEL } from "../mocks/fixtures";
-import type { ApiResponse, PublicUploadContext } from "../types";
-import { ok } from "./response";
+import { API_ROUTES } from "@constants/api-routes";
+import { delay } from "@mocks/delay";
+import { CURRENT_PERIOD, CURRENT_PERIOD_LABEL } from "@mocks/fixtures";
+import type { ApiResponse, PublicUploadContext } from "@types";
+import { ok } from "@services/response";
 
 // Token-ul prefixat cu "expired" simuleaza un link expirat (pentru click-thru).
 function isExpiredToken(token: string): boolean {

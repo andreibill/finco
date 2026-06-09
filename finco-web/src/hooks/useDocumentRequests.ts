@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { documentRequestsService, type CreateRequestInput } from "../services/documentRequests.service";
-import { unwrap } from "./unwrap";
-import { queryKeys } from "./queryKeys";
+import { documentRequestsService, type CreateRequestInput } from "@services/documentRequests.service";
+import { unwrap } from "@hooks/unwrap";
+import { queryKeys } from "@hooks/queryKeys";
 
 export function useDocumentRequests() {
   return useQuery({

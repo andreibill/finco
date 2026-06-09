@@ -1,8 +1,8 @@
-import { API_ROUTES } from "../constants/api-routes";
-import { delay } from "../mocks/delay";
-import { store } from "../mocks/fixtures";
-import type { ApiResponse, FileItem, Period } from "../types";
-import { ok, fail } from "./response";
+import { API_ROUTES } from "@constants/api-routes";
+import { delay } from "@mocks/delay";
+import { store } from "@mocks/fixtures";
+import type { ApiResponse, FileItem, Period } from "@types";
+import { ok, fail } from "@services/response";
 
 function findPeriod(id: string): Period | undefined {
   for (const list of Object.values(store.periods)) {

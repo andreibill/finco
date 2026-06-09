@@ -1,8 +1,8 @@
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { authService, type LoginCredentials } from "../services/auth.service";
-import { ROUTES } from "../constants/routes";
-import type { User } from "../types";
+import { authService, type LoginCredentials } from "@services/auth.service";
+import { ROUTES } from "@constants/routes";
+import type { User } from "@types";
 
 // Cheile de persistenta a sesiunii mock. In prod tokenul ar fi cookie httpOnly
 // (NU in JS); aici doar simulam restaurarea sesiunii la reload.

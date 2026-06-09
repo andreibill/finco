@@ -3,7 +3,7 @@
 // finalizat, trimite cerere) modifica aceste structuri, iar React Query
 // reflecta starea reala dupa invalidare.
 
-import type { Client, Period, FileItem, DocumentRequest, User } from "../types";
+import type { Client, Period, FileItem, DocumentRequest, User } from "@types";
 
 export const CURRENT_PERIOD = "2026-05";
 export const CURRENT_PERIOD_LABEL = "mai 2026";

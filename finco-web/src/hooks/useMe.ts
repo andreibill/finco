@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { meService } from "../services/me.service";
-import { unwrap } from "./unwrap";
-import { queryKeys } from "./queryKeys";
+import { meService } from "@services/me.service";
+import { unwrap } from "@hooks/unwrap";
+import { queryKeys } from "@hooks/queryKeys";
 
 export function useMe() {
   return useQuery({

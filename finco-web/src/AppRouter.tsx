@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-import { Splash } from "./surfaces/InternalApp/Splash";
-import { APP_PREFIX } from "./constants/routes";
+import { Splash } from "@surfaces/InternalApp/Splash";
+import { APP_PREFIX } from "@constants/routes";
 
 // Fiecare suprafata se incarca lazy: vizitatorul public nu descarca bundle-ul
 // cabinetului si invers.

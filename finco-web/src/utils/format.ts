@@ -1,4 +1,4 @@
-import type { RequestType, DocumentRequest } from "../types";
+import type { RequestType, DocumentRequest } from "@types";
 
 const MONTHS_SHORT = [
   "ian", "feb", "mar", "apr", "mai", "iun",

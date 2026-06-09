@@ -1,7 +1,7 @@
-import { API_ROUTES } from "../constants/api-routes";
-import { delay } from "../mocks/delay";
-import type { ApiResponse } from "../types";
-import { ok } from "./response";
+import { API_ROUTES } from "@constants/api-routes";
+import { delay } from "@mocks/delay";
+import type { ApiResponse } from "@types";
+import { ok } from "@services/response";
 
 // Descarcarile sunt no-op in mock (in prod returneaza un URL pre-semnat /
 // streameaza continutul). Pastram seam-ul curat pentru backend real.

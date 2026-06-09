@@ -1,4 +1,4 @@
-import type { ApiResponse } from "../types";
+import type { ApiResponse } from "@types";
 
 // Helper-e pentru a construi raspunsuri in formatul standard ApiResponse<T>.
 export function ok<T>(data: T, message = "OK"): ApiResponse<T> {

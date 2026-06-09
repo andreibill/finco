@@ -1,10 +1,10 @@
 // Serviciu auth (mock). La backend real, fiecare metoda devine un fetch catre
 // API_ROUTES.AUTH.* — semnatura ramane neschimbata.
-import { API_ROUTES } from "../constants/api-routes";
-import { delay } from "../mocks/delay";
-import { store } from "../mocks/fixtures";
-import type { ApiResponse, User } from "../types";
-import { ok } from "./response";
+import { API_ROUTES } from "@constants/api-routes";
+import { delay } from "@mocks/delay";
+import { store } from "@mocks/fixtures";
+import type { ApiResponse, User } from "@types";
+import { ok } from "@services/response";
 
 export type LoginCredentials = { email: string; parola: string };
 

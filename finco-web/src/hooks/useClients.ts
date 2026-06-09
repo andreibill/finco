@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { clientsService } from "../services/clients.service";
-import { unwrap } from "./unwrap";
-import { queryKeys } from "./queryKeys";
-import type { ClientFormValues } from "../types";
+import { clientsService } from "@services/clients.service";
+import { unwrap } from "@hooks/unwrap";
+import { queryKeys } from "@hooks/queryKeys";
+import type { ClientFormValues } from "@types";
 
 // Filtrele (cautare + status) vin din URL si fac parte din cheia de query.
 // Filtrarea ramane client-side in mock; in prod aceiasi parametri merg server-side.

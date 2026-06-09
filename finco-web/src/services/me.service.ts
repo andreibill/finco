@@ -1,8 +1,8 @@
-import { API_ROUTES } from "../constants/api-routes";
-import { delay } from "../mocks/delay";
-import { store } from "../mocks/fixtures";
-import type { ApiResponse, User } from "../types";
-import { ok } from "./response";
+import { API_ROUTES } from "@constants/api-routes";
+import { delay } from "@mocks/delay";
+import { store } from "@mocks/fixtures";
+import type { ApiResponse, User } from "@types";
+import { ok } from "@services/response";
 
 export const meService = {
   // GET /api/me

@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
-import { AuthProvider, useAuth } from "../../contexts/AuthContext";
-import { RequestModalContext } from "../../contexts/RequestModalContext";
-import { LayoutContext } from "./LayoutContext";
-import { Splash } from "./Splash";
-import { Sidebar } from "../../components/Sidebar/Sidebar";
-import { RequestDocumentsModal } from "../../pages/RequestDocumentsModal/RequestDocumentsModal";
-import { LoginScreen } from "../../pages/LoginScreen/LoginScreen";
-import { LibraryScreen } from "../../pages/LibraryScreen/LibraryScreen";
-import { ClientDetailScreen } from "../../pages/ClientDetailScreen/ClientDetailScreen";
-import { PeriodDetailScreen } from "../../pages/PeriodDetailScreen/PeriodDetailScreen";
-import { RequestsScreen } from "../../pages/RequestsScreen/RequestsScreen";
-import { SettingsScreen } from "../../pages/SettingsScreen/SettingsScreen";
-import { ROUTES } from "../../constants/routes";
-import type { Client } from "../../types";
+import { AuthProvider, useAuth } from "@contexts/AuthContext";
+import { RequestModalContext } from "@contexts/RequestModalContext";
+import { LayoutContext } from "@surfaces/InternalApp/LayoutContext";
+import { Splash } from "@surfaces/InternalApp/Splash";
+import { Sidebar } from "@components";
+import { RequestDocumentsModal } from "@components/modals/RequestDocumentsModal/RequestDocumentsModal";
+import { Login } from "@pages/public/Login/Login";
+import { Library } from "@pages/private/Library/Library";
+import { ClientDetail } from "@pages/private/ClientDetail/ClientDetail";
+import { PeriodDetail } from "@pages/private/PeriodDetail/PeriodDetail";
+import { Requests } from "@pages/private/Requests/Requests";
+import { Settings } from "@pages/private/Settings/Settings";
+import { ROUTES } from "@constants/routes";
+import type { Client } from "@types";
 import "./InternalApp.css";
 
 // Cadrul de layout (Shell): Sidebar + main cu Outlet. Tine si overlay-urile
@@ -61,15 +61,15 @@ function InternalRoutes() {
     <Routes>
       <Route
         path="login"
-        element={authed ? <Navigate to={ROUTES.APP.BIBLIOTECA} replace /> : <LoginScreen />}
+        element={authed ? <Navigate to={ROUTES.APP.BIBLIOTECA} replace /> : <Login />}
       />
       <Route element={authed ? <ShellLayout /> : <Navigate to={ROUTES.APP.LOGIN} replace />}>
         <Route index element={<Navigate to={ROUTES.APP.BIBLIOTECA} replace />} />
-        <Route path="biblioteca" element={<LibraryScreen />} />
-        <Route path="clienti/:id" element={<ClientDetailScreen />} />
-        <Route path="clienti/:id/perioade/:periodId" element={<PeriodDetailScreen />} />
-        <Route path="cereri" element={<RequestsScreen />} />
-        <Route path="setari" element={<SettingsScreen />} />
+        <Route path="biblioteca" element={<Library />} />
+        <Route path="clienti/:id" element={<ClientDetail />} />
+        <Route path="clienti/:id/perioade/:periodId" element={<PeriodDetail />} />
+        <Route path="cereri" element={<Requests />} />
+        <Route path="setari" element={<Settings />} />
         <Route path="*" element={<Navigate to={ROUTES.APP.BIBLIOTECA} replace />} />
       </Route>
     </Routes>

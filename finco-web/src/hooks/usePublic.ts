@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { publicService } from "../services/public.service";
-import { unwrap } from "./unwrap";
-import { queryKeys } from "./queryKeys";
+import { publicService } from "@services/public.service";
+import { unwrap } from "@hooks/unwrap";
+import { queryKeys } from "@hooks/queryKeys";
 
 export function usePublicUploadContext(token: string) {
   return useQuery({

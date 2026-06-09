@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import type { Client } from "../types";
+import type { Client } from "@types";
 
 // Permite oricarui ecran cabinet sa deschida RequestDocumentsModal-ul global.
 // `null` = deschide fara client preselectat (se alege din lista).

@@ -1,5 +1,5 @@
-import { TopBar, type Breadcrumb } from "../../components/TopBar/TopBar";
-import { useLayout } from "./LayoutContext";
+import { TopBar, type Breadcrumb } from "@components";
+import { useLayout } from "@surfaces/InternalApp/LayoutContext";
 import "./PageShell.css";
 
 export type PageShellProps = {

@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { periodsService } from "../services/periods.service";
-import { filesService } from "../services/files.service";
-import { unwrap } from "./unwrap";
-import { queryKeys } from "./queryKeys";
+import { periodsService } from "@services/periods.service";
+import { filesService } from "@services/files.service";
+import { unwrap } from "@hooks/unwrap";
+import { queryKeys } from "@hooks/queryKeys";
 
 export function usePeriodFiles(periodId: string) {
   return useQuery({

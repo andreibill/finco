@@ -1,8 +1,8 @@
-import { API_ROUTES } from "../constants/api-routes";
-import { delay } from "../mocks/delay";
-import { store, CURRENT_PERIOD } from "../mocks/fixtures";
-import type { ApiResponse, DocumentRequest } from "../types";
-import { ok, fail } from "./response";
+import { API_ROUTES } from "@constants/api-routes";
+import { delay } from "@mocks/delay";
+import { store, CURRENT_PERIOD } from "@mocks/fixtures";
+import type { ApiResponse, DocumentRequest } from "@types";
+import { ok, fail } from "@services/response";
 
 export type CreateRequestInput = {
   client_id: string;
