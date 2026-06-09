@@ -3,6 +3,7 @@ import { delay } from "@mocks/delay";
 import { store, CURRENT_PERIOD } from "@mocks/fixtures";
 import type { ApiResponse, Client, Period, ClientFormValues } from "@types";
 import { ok, fail } from "@services/response";
+import { linkStatusFrom } from "@utils/format";
 
 function initialsFrom(nume: string): string {
   const parts = nume.trim().split(/\s+/).filter(Boolean);
@@ -11,11 +12,36 @@ function initialsFrom(nume: string): string {
 }
 
 export const clientsService = {
-  // GET /api/clients
-  async list(): Promise<ApiResponse<Client[]>> {
+  // GET /api/clients?period=YYYY-MM
+  // Statusul afisat (status / fisiere / ultim upload) e calculat pentru perioada
+  // ceruta din istoricul clientului; lipsa unei perioade inseamna "fara upload".
+  async list(period: string = CURRENT_PERIOD): Promise<ApiResponse<Client[]>> {
     void API_ROUTES.CLIENTS.LIST;
     await delay(500);
-    return ok(store.clients.map((c) => ({ ...c })));
+    const clients = store.clients.map((c) => {
+      const p = (store.periods[c.id] || []).find((x) => x.an_luna === period);
+      // Statusul linkului din cererile (email-urile) pentru client + perioada.
+      const reqs = store.requests.filter((r) => r.client_id === c.id && r.period === period);
+      const linkStatus = linkStatusFrom(reqs);
+      return {
+        ...c,
+        currentStatus: p ? p.status : "empty",
+        currentFiles: p ? p.numar_fisiere : 0,
+        lastUpload: p ? p.last_upload : null,
+        linkStatus,
+      } satisfies Client;
+    });
+    return ok(clients);
+  },
+
+  // GET /api/periods — perioadele disponibile (an_luna), descrescator.
+  async availablePeriods(): Promise<ApiResponse<string[]>> {
+    void API_ROUTES.PERIODS.LIST;
+    await delay(300);
+    const set = new Set<string>([CURRENT_PERIOD]);
+    Object.values(store.periods).forEach((arr) => arr.forEach((p) => set.add(p.an_luna)));
+    const sorted = [...set].sort().reverse();
+    return ok(sorted);
   },
 
   // GET /api/clients/{id}
@@ -78,5 +104,20 @@ export const clientsService = {
     client.activ = values.activ;
     client.initials = initialsFrom(values.nume);
     return ok({ ...client }, "Client salvat.");
+  },
+
+  // PUT /api/clients/{id} — activeaza / dezactiveaza un client. Nu stergem
+  // niciodata un client (pastram istoricul pentru audit): un client inactiv e
+  // tratat ca neinregistrat — nu poate cere sau primi link-uri de upload.
+  async setActive(id: string, activ: boolean): Promise<ApiResponse<Client>> {
+    void API_ROUTES.CLIENTS.UPDATE(id);
+    await delay(450);
+    const client = store.clients.find((c) => c.id === id);
+    if (!client) return fail("Clientul nu a fost gasit.");
+    client.activ = activ;
+    return ok(
+      { ...client },
+      activ ? "Client reactivat." : "Client dezactivat.",
+    );
   },
 };

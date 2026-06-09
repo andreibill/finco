@@ -40,7 +40,7 @@
 .library__table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 880px;
+  min-width: 760px;
 }
 
 .library__table thead tr {
@@ -55,10 +55,6 @@
   font-weight: var(--fw-semibold);
   font-size: var(--fs-12);
   color: var(--fg-secondary);
-}
-
-.library__table th.library__num {
-  text-align: right;
 }
 
 @media (max-width: 1024px) {

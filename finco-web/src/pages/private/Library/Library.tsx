@@ -1,29 +1,34 @@
 import { useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Card, Input, Button, SkeletonRows, EmptyState } from "@components";
+import { Card, Input, Button, SkeletonRows, EmptyState, PeriodFilter } from "@components";
 import { ClientFormModal } from "@components/modals/ClientFormModal/ClientFormModal";
 import { KpiCard } from "@features/private/Library/KpiCard";
 import { SegmentedFilter } from "@features/private/Library/SegmentedFilter";
 import { ClientRow } from "@features/private/Library/ClientRow";
 import { PageShell } from "@surfaces/InternalApp/PageShell";
-import { useAllClients, useClients } from "@hooks/useClients";
+import { useAllClients, useClients, useAvailablePeriods } from "@hooks/useClients";
 import { useRequestModal } from "@contexts/RequestModalContext";
+import { useBibliotecaPeriod } from "@contexts/BibliotecaPeriodContext";
 import { ROUTES } from "@constants/routes";
 import { MESSAGES } from "@constants/messages";
-import { CURRENT_PERIOD, CURRENT_PERIOD_LABEL } from "@mocks/fixtures";
+import { formatPeriodLabel } from "@utils/format";
 import "./Library.css";
 
 export function Library() {
   const [params, setParams] = useSearchParams();
   const navigate = useNavigate();
   const { openRequestModal } = useRequestModal();
+  const { period, setPeriod } = useBibliotecaPeriod();
   const [addOpen, setAddOpen] = useState(false);
 
   const cauta = params.get("cauta") ?? "";
   const status = params.get("status") ?? "all";
+  const periodLabel = formatPeriodLabel(period);
 
-  const filtered = useClients({ cauta, status });
-  const all = useAllClients();
+  const filtered = useClients({ cauta, status, period });
+  const all = useAllClients(period);
+  const availablePeriods = useAvailablePeriods();
+  const periodOptions = availablePeriods.data?.length ? availablePeriods.data : [period];
 
   const setParam = (key: string, value: string) => {
     const next = new URLSearchParams(params);
@@ -45,19 +50,14 @@ export function Library() {
   return (
     <PageShell
       title="Biblioteca"
-      subtitle={`Perioada curenta: ${CURRENT_PERIOD_LABEL}`}
-      right={
-        <Button variant="ghost" iconLeft="bell" size="sm">
-          Notificari
-        </Button>
-      }
+      right={<PeriodFilter value={period} options={periodOptions} onChange={setPeriod} />}
     >
       <div className="library">
       <div className="library__kpis">
         <KpiCard icon="check-circle-2" tone="complete" label="Clienti incarcat" value={kpis.complete} total={kpis.total} hint="Perioada finalizata" />
         <KpiCard icon="clock" tone="partial" label="Partial" value={kpis.partial} total={kpis.total} hint="Au incarcat, neinchis" />
         <KpiCard icon="alert-circle" tone="empty" label="Fara upload" value={kpis.empty} total={kpis.total} hint="Nu au incarcat inca" />
-        <KpiCard icon="file-archive" tone="brand" label="Fisiere primite" value={kpis.files} hint={`In perioada ${CURRENT_PERIOD}`} />
+        <KpiCard icon="file-archive" tone="brand" label="Fisiere primite" value={kpis.files} hint={`In perioada ${periodLabel}`} />
       </div>
 
       <div className="library__toolbar">
@@ -94,11 +94,10 @@ export function Library() {
               <thead>
                 <tr>
                   <th>Client</th>
-                  <th>Status {CURRENT_PERIOD_LABEL}</th>
                   <th>Ultim upload</th>
-                  <th className="library__num">Fisiere</th>
-                  <th className="library__num">Zi trimitere</th>
-                  <th />
+                  <th>Fisiere</th>
+                  <th>Link</th>
+                  <th>Status {periodLabel}</th>
                 </tr>
               </thead>
               <tbody>
@@ -106,8 +105,7 @@ export function Library() {
                   <ClientRow
                     key={c.id}
                     client={c}
-                    onOpen={() => navigate(ROUTES.APP.CLIENT(c.id))}
-                    onRequest={() => openRequestModal(c)}
+                    onOpen={() => navigate(ROUTES.APP.BIBLIOTECA_CLIENT(c.id))}
                   />
                 ))}
               </tbody>

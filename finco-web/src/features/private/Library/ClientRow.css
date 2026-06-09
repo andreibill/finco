@@ -54,7 +54,7 @@
 }
 
 .client-row__num {
-  text-align: right;
+  text-align: left;
   font-family: var(--font-sans);
   font-size: var(--fs-14);
   color: var(--fg-primary);
@@ -63,14 +63,4 @@
 
 .client-row__muted {
   color: var(--fg-tertiary);
-}
-
-.client-row__actions {
-  text-align: right;
-}
-
-.client-row__actions-inner {
-  display: inline-flex;
-  gap: var(--space-1);
-  align-items: center;
 }

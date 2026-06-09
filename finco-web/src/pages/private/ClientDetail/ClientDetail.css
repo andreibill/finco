@@ -3,13 +3,16 @@
   max-width: var(--container-wide);
   margin: 0 auto;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
+/* Header: identitate + actiuni */
 .client-detail__header {
   display: flex;
   align-items: center;
   gap: var(--space-4);
-  margin-bottom: 20px;
 }
 
 .client-detail__info {
@@ -27,7 +30,8 @@
 
 .client-detail__meta {
   display: flex;
-  gap: 18px;
+  align-items: center;
+  gap: 14px;
   margin-top: 6px;
   font-family: var(--font-sans);
   font-size: var(--fs-13);
@@ -45,16 +49,25 @@
   display: flex;
   gap: var(--space-2);
   flex-shrink: 0;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
-.client-detail__list-head {
+/* Grila cu cele doua carduri (Detalii + Luna curenta) */
+.client-detail__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.client-detail__card-head {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   margin-bottom: var(--space-3);
 }
 
-.client-detail__list-title {
+.client-detail__card-title {
   margin: 0;
   font-family: var(--font-display);
   font-weight: var(--fw-bold);
@@ -62,16 +75,138 @@
   color: var(--fg-primary);
 }
 
-.client-detail__count {
+.client-detail__card .client-detail__card-title {
+  margin-bottom: var(--space-3);
+}
+
+.client-detail__card-head .client-detail__card-title {
+  margin-bottom: 0;
+}
+
+/* Detalii client: lista de campuri */
+.client-detail__fields {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.client-detail__field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.client-detail__field:last-child {
+  border-bottom: none;
+}
+
+.client-detail__field dt {
   font-family: var(--font-sans);
   font-size: var(--fs-13);
   color: var(--fg-tertiary);
 }
 
-.client-detail__periods {
+.client-detail__field dd {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--fs-14);
+  font-weight: var(--fw-medium);
+  color: var(--fg-primary);
+  text-align: right;
+}
+
+.client-detail__field-email {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.client-detail__field-email span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Luna curenta */
+.client-detail__current {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.client-detail__current-stats {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.client-detail__stat {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-sans);
+  font-size: var(--fs-14);
+  color: var(--fg-secondary);
+}
+
+/* Cereri recente */
+.client-detail__reqs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.client-detail__req {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.client-detail__req:last-child {
+  border-bottom: none;
+}
+
+.client-detail__req-status {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.client-detail__req-status--ok {
+  color: var(--status-complete-fg);
+}
+
+.client-detail__req-status--err {
+  color: var(--status-error-fg);
+}
+
+.client-detail__req-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.client-detail__req-subject {
+  font-family: var(--font-sans);
+  font-size: var(--fs-14);
+  font-weight: var(--fw-medium);
+  color: var(--fg-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.client-detail__req-meta {
+  margin-top: 2px;
+  font-family: var(--font-sans);
+  font-size: var(--fs-13);
+  color: var(--fg-tertiary);
 }
 
 @media (max-width: 768px) {
@@ -83,5 +218,9 @@
   }
   .client-detail__actions {
     width: 100%;
+    justify-content: flex-start;
+  }
+  .client-detail__grid {
+    grid-template-columns: 1fr;
   }
 }

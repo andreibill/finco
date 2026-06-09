@@ -1,14 +1,13 @@
-import { Avatar, StatusPill, Button, IconButton } from "@components";
+import { Avatar, StatusPill, LinkStatusTag } from "@components";
 import type { Client } from "@types";
 import "./ClientRow.css";
 
 export type ClientRowProps = {
   client: Client;
   onOpen: () => void;
-  onRequest: () => void;
 };
 
-export function ClientRow({ client, onOpen, onRequest }: ClientRowProps) {
+export function ClientRow({ client, onOpen }: ClientRowProps) {
   return (
     <tr
       className="client-row"
@@ -29,21 +28,15 @@ export function ClientRow({ client, onOpen, onRequest }: ClientRowProps) {
           </div>
         </div>
       </td>
-      <td>
-        <StatusPill status={client.currentStatus} />
-      </td>
       <td className="client-row__mono">{client.lastUpload || "—"}</td>
       <td className="client-row__num">
         {client.currentFiles > 0 ? `${client.currentFiles} fisiere` : <span className="client-row__muted">—</span>}
       </td>
-      <td className="client-row__num client-row__mono">ziua {client.zi_trimitere}</td>
-      <td className="client-row__actions" onClick={(e) => e.stopPropagation()}>
-        <div className="client-row__actions-inner">
-          <Button variant="secondary" size="sm" iconLeft="mail-plus" onClick={onRequest}>
-            Cere fisiere
-          </Button>
-          <IconButton name="more-horizontal" label="Actiuni client" />
-        </div>
+      <td>
+        <LinkStatusTag status={client.linkStatus ?? "negenerat"} />
+      </td>
+      <td>
+        <StatusPill status={client.currentStatus} />
       </td>
     </tr>
   );
