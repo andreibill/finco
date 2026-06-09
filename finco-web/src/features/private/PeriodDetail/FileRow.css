@@ -12,32 +12,18 @@
   background: var(--bg-subtle);
 }
 
-.file-row__icon {
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-sm);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+/* Fisier selectat pentru actiuni in masa. */
+.file-row--selected {
+  background: var(--finco-orange-50);
+}
+.file-row--selected:hover {
+  background: var(--finco-orange-100);
 }
 
-/* Culori per tip fisier: pdf rosu, xls verde, img albastru, zip portocaliu. */
-.file-icon--pdf {
-  background: var(--status-error-bg);
-  color: var(--status-error-fg);
-}
-.file-icon--xls {
-  background: var(--status-complete-bg);
-  color: var(--status-complete-fg);
-}
-.file-icon--img {
-  background: var(--status-info-bg);
-  color: var(--status-info-fg);
-}
-.file-icon--zip {
-  background: var(--finco-orange-100);
-  color: var(--finco-orange-700);
+/* Fisier dezactivat (soft delete): doar metadate, estompat. */
+.file-row--inactive .file-row__main,
+.file-row--inactive .file-icon {
+  opacity: 0.5;
 }
 
 .file-row__main {
@@ -59,9 +45,4 @@
   font-family: var(--font-mono);
   font-size: 11px;
   color: var(--fg-tertiary);
-}
-
-.file-row__actions {
-  display: flex;
-  gap: var(--space-1);
 }

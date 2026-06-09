@@ -1,0 +1,129 @@
+.biblioteca-client {
+  padding: 24px 28px;
+  max-width: var(--container-wide);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.biblioteca-client__header {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+/* Randul principal al antetului: avatar | info | actiuni. */
+.biblioteca-client__header-main {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.biblioteca-client__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.biblioteca-client__name {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-24);
+  letter-spacing: -0.01em;
+  color: var(--fg-primary);
+}
+
+.biblioteca-client__meta {
+  display: flex;
+  gap: 18px;
+  margin-top: 6px;
+  font-family: var(--font-sans);
+  font-size: var(--fs-13);
+  color: var(--fg-secondary);
+  flex-wrap: wrap;
+}
+
+.biblioteca-client__meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.biblioteca-client__actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+/* Sumarul perioadei: aceleasi coloane ca randul din lista Biblioteca. */
+.biblioteca-client__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.biblioteca-client__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Actiunea de descarcare a perioadei: impinsa la dreapta, centrata pe rand. */
+.biblioteca-client__stats-action {
+  margin-left: auto;
+  align-self: center;
+}
+
+.biblioteca-client__stat-label {
+  font-family: var(--font-sans);
+  font-size: var(--fs-12);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--fg-tertiary);
+}
+
+.biblioteca-client__stat-value {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-sans);
+  font-size: var(--fs-14);
+  color: var(--fg-primary);
+}
+
+.biblioteca-client__stat-value--mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-13);
+}
+
+/* Bara de unelte peste fisiere: vedere (pe lot / toate) + actiuni pe perioada. */
+.biblioteca-client__toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.biblioteca-client__toolbar-spacer {
+  flex: 1;
+}
+
+.biblioteca-client__lots {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+@media (max-width: 768px) {
+  .biblioteca-client {
+    padding: 16px;
+  }
+  .biblioteca-client__header-main {
+    flex-wrap: wrap;
+  }
+  .biblioteca-client__actions {
+    width: 100%;
+  }
+}

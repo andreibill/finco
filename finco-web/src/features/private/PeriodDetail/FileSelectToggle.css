@@ -1,0 +1,41 @@
+.file-select {
+  position: relative;
+  display: inline-flex;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+.file-select:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+/* Pastila selectata: portocaliu cu bifa alba. */
+.file-select__chip {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--finco-orange);
+  color: var(--fg-on-brand);
+}
+
+/* Indiciu de selectare la hover, peste iconita tipului (cand nu e selectat). */
+.file-select__hint {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-sm);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: var(--finco-orange-100);
+  color: var(--finco-orange-700);
+}
+.file-select:not(.file-select--on):hover .file-select__hint {
+  display: inline-flex;
+}

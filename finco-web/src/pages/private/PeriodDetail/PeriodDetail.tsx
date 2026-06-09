@@ -55,22 +55,17 @@ export function PeriodDetail() {
     showToast({ tone: "info", title: "Descarcare pregatita." });
   };
 
-  const toBiblioteca = () => navigate(ROUTES.APP.BIBLIOTECA);
+  const toClienti = () => navigate(ROUTES.APP.CLIENTI);
   const toClient = () => navigate(ROUTES.APP.CLIENT(id));
 
   return (
     <PageShell
       title={`Perioada ${monthLabel || "..."}`}
       breadcrumbs={[
-        { label: "Biblioteca", onClick: toBiblioteca },
+        { label: "Clienti", onClick: toClienti },
         { label: client.data?.nume ?? "Client", onClick: toClient },
-        { label: period?.an_luna ?? "" },
+        { label: monthLabel || "..." },
       ]}
-      right={
-        <Button variant="ghost" iconLeft="arrow-left" size="sm" onClick={toClient}>
-          Inapoi
-        </Button>
-      }
     >
       <div className="period-detail">
       <Card padding={20} className="period-detail__header">

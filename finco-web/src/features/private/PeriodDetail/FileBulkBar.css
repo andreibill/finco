@@ -1,0 +1,36 @@
+.file-bulk {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 8px 14px;
+  margin-bottom: 14px;
+  background: var(--bg-muted);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.file-bulk__all {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-sans);
+  font-size: var(--fs-13);
+  font-weight: var(--fw-medium);
+  color: var(--fg-secondary);
+  cursor: pointer;
+  user-select: none;
+}
+
+.file-bulk__check {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--finco-orange);
+  cursor: pointer;
+}
+
+.file-bulk__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-left: auto;
+}

@@ -10,6 +10,13 @@
   padding: 0 var(--space-1);
 }
 
+.lot-group__check {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--finco-orange);
+  cursor: pointer;
+}
+
 .lot-group__title {
   font-family: var(--font-sans);
   font-weight: var(--fw-semibold);
