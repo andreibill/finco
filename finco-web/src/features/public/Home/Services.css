@@ -1,0 +1,44 @@
+.services__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+
+.services__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.services__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  background: var(--finco-orange-50);
+  color: var(--fg-brand);
+  margin-bottom: var(--space-2);
+}
+
+.services__card-title {
+  margin: 0;
+}
+
+.services__card-text {
+  margin: 0;
+  color: var(--fg-secondary);
+}
+
+@media (max-width: 900px) {
+  .services__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .services__grid {
+    grid-template-columns: 1fr;
+  }
+}

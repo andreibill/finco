@@ -7,6 +7,10 @@ export const MESSAGES = {
   // Cereri
   REQUEST_SENT: "Link trimis catre client.",
   REQUEST_SENDING: "Se trimite...",
+  // Contact (site public)
+  CONTACT_SENT: "Mesajul a fost trimis. Va contactam in cel mai scurt timp.",
+  CONTACT_SENDING: "Se trimite...",
+  CONTACT_ERROR: "Nu am putut trimite mesajul. Incercati din nou.",
   // Client
   CLIENT_SAVED: "Client salvat.",
   CLIENT_SAVING: "Se salveaza...",

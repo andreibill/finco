@@ -18,6 +18,7 @@ export const ROUTES = {
   },
   // Suprafata publica
   PUBLIC: {
+    HOME: "/",
     UPLOAD: (token: string) => `/upload/${token}`,
     CERE_LINK: "/cere-link",
   },

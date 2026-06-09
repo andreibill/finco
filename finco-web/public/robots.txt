@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+# Fluxuri private legate prin token — nu se indexeaza.
+Disallow: /upload/
+Disallow: /cere-link
+# Suprafata cabinet (in prototip sub /app, in prod pe subdomeniul app.finco.ro).
+Disallow: /app/
+
+Sitemap: https://finco.ro/sitemap.xml

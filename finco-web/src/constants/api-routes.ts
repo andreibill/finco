@@ -36,5 +36,6 @@ export const API_ROUTES = {
     UPLOAD_CONTEXT: (token: string) => `/api/public/upload/${token}`,
     UPLOAD: (token: string) => `/api/public/upload/${token}`,
     REQUEST_LINK: "/api/public/request-link",
+    CONTACT: "/api/public/contact",
   },
 } as const;
